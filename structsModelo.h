@@ -23,6 +23,16 @@ struct cliente{
 	char* telefone;
 };
 
+Cliente alocaMemoriaCliente(Cliente cliente){
+	cliente.nome = (char*)malloc(sizeof(char)*30);
+	cliente.endereco = (char*)malloc(sizeof(char)*30);
+	cliente.bairro = (char*)malloc(sizeof(char)*15);
+	cliente.cep = (char*)malloc(sizeof(char)*10);
+	cliente.cidade = (char*)malloc(sizeof(char)*20);
+	cliente.estado = (char*)malloc(sizeof(char)*2);
+	cliente.telefone = (char*)malloc(sizeof(char)*10);
+}
+
 struct data{
 	int dia;
 	int mes;
@@ -37,3 +47,8 @@ struct ordemServico{
 	Data dataSolicitacao;
 	char status;
 };
+
+OrdemServico alocaMemoriaOrdemServico(OrdemServico ordemServico){
+	ordemServico.descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
+	ordemServico.prioridade = (char*)malloc(sizeof(char)*6);
+}
