@@ -5,7 +5,6 @@ typedef struct cliente Cliente;
 typedef struct ordemServico OrdemServico;
 typedef struct data Data;
 
-
 struct servicos{
 	int codigo;
 	char* descricao;
