@@ -5,7 +5,6 @@
 #define CLIENTE 0
 #define OS 1
 #define ATIVIDADE 2
-#define EMPRESA 3
 
 //Função para ler string do tamanho TAMANHOAUX até a quebra de linha
 void lerString(char *string, int TAMANHOMAX){
