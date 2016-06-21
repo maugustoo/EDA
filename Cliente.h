@@ -97,7 +97,6 @@ void imprimirCliente(Cliente* cliente){
 	printf("Cidade: %s\n", cliente->cidade);
 	printf("Estado: %s\n", cliente->estado);
 	printf("Telefone: %s\n", cliente->telefone);
-
 }
 
 void imprimirEmpresa(Empresa* empresa){
@@ -129,6 +128,27 @@ void consultaCodigo(No* head, int codigo){
 	}
 
 	consultaCodigo(head->prox, codigo);
+}
+
+No* excluirCliente(No* head, int codigo){
+
+	No *auxiliar = head, *auxiliarAnt = NULL;
+
+	while(auxiliar!=NULL && !comparaCodigo(codigo, (Cliente*)auxiliar->informacao)){
+		auxiliarAnt = auxiliar;
+		auxiliar = auxiliar->prox;
+	}
+	if(auxiliar==NULL){
+		printf("O codigo %d nao e referente a nenhum cliente!\n", codigo);
+	}else if(auxiliarAnt == NULL){
+		head = auxiliar->prox;
+		free(auxiliar);
+	}else if(comparaCodigo(codigo, (Cliente*)auxiliar->informacao)){
+		auxiliarAnt->prox = auxiliar->prox;
+		free(auxiliar);
+	}
+
+	return head;
 }
 
 void impressao(No* head){

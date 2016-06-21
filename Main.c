@@ -40,6 +40,12 @@ int main(){
 				}
 
 			break;
+			case 3:
+				printf("Digita o codigo ai\n");
+				scanf("%d", &codigo);
+				head->filho = excluirCliente(head->filho, codigo);
+				break;
+
 			case 4:
 				impressao(head);
 			break;
