@@ -50,8 +50,8 @@ void leituraCliente(Cliente* cliente){
 }
 
 //Função para comparar os nomes dos Clientes, para ordenar por nome na hora da inserção
-int comparaNome(Cliente* cliente, Cliente* clienteAux){
-	return strcmp(cliente->nome, clienteAux->nome);
+int comparaNome(char* nome, Cliente* clienteAux){
+	return strcmp(nome, clienteAux->nome);
 }
 
 //Função para inserir um cliente na lista
@@ -65,12 +65,11 @@ No* insercaoCliente(No* head, Cliente* cliente){
 	novoCliente->filho = NULL;
 
 	if(auxiliar==NULL){
-		printf("aqui\n");
 		novoCliente->prox = NULL;
 		head->filho = novoCliente;
 	}else{
 
-		while(auxiliar!=NULL && comparaNome(cliente, (Cliente*)auxiliar->informacao)>0){
+		while(auxiliar!=NULL && comparaNome(cliente->nome, (Cliente*)auxiliar->informacao)>0){
 			auxiliar2 = auxiliar;
 			auxiliar = auxiliar->prox;
 		}
@@ -91,14 +90,48 @@ No* insercaoCliente(No* head, Cliente* cliente){
 
 void imprimirCliente(Cliente* cliente){
 	printf("Nome Cliente: %s\n", cliente->nome);
+	printf("Codigo: %d\n", cliente->codigo);
+	printf("Endereco: %s\n", cliente->endereco);
+	printf("Bairro: %s\n", cliente->bairro);
+	printf("CEP: %s\n", cliente->cep);
+	printf("Cidade: %s\n", cliente->cidade);
+	printf("Estado: %s\n", cliente->estado);
+	printf("Telefone: %s\n", cliente->telefone);
+
 }
 
 void imprimirEmpresa(Empresa* empresa){
 	printf("Nome Empresa: %s\n", empresa->nome);
 }
 
-void impressao(No* head){
 
+void consultaNome(No* head, char* nome){
+
+	if(head==NULL)
+		return;
+	if(head->tipoInformacao == CLIENTE && comparaNome(nome, (Cliente*)head->informacao)==0){
+		imprimirCliente(head->informacao);
+	}
+
+	consultaNome(head->prox, nome);
+}
+
+int comparaCodigo(int codigo, Cliente *cliente){
+	return codigo == cliente->codigo;
+}
+
+void consultaCodigo(No* head, int codigo){
+
+	if(head==NULL)
+		return;
+	if(head->tipoInformacao == CLIENTE && comparaCodigo(codigo, (Cliente*)head->informacao)){
+		imprimirCliente(head->informacao);
+	}
+
+	consultaCodigo(head->prox, codigo);
+}
+
+void impressao(No* head){
 
 	if(head==NULL)
 		return;
