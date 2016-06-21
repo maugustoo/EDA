@@ -1,9 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct servicos Servicos;
 typedef struct cliente Cliente;
 typedef struct ordemServico OrdemServico;
 typedef struct data Data;
+typedef struct no No;
+typedef struct cabec Cabec;
+
 
 struct servicos{
 	int codigo;
@@ -30,6 +34,8 @@ Cliente alocaMemoriaCliente(Cliente cliente){
 	cliente.cidade = (char*)malloc(sizeof(char)*20);
 	cliente.estado = (char*)malloc(sizeof(char)*2);
 	cliente.telefone = (char*)malloc(sizeof(char)*10);
+
+	return cliente;
 }
 
 struct data{
@@ -51,3 +57,10 @@ OrdemServico alocaMemoriaOrdemServico(OrdemServico ordemServico){
 	ordemServico.descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
 	ordemServico.prioridade = (char*)malloc(sizeof(char)*6);
 }
+
+struct no{
+	int tipoInformacao;
+	void *informacao;
+	No *prox, *ant;
+	No *filho;
+};
