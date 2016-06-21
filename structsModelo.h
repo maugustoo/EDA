@@ -7,7 +7,16 @@ typedef struct ordemServico OrdemServico;
 typedef struct data Data;
 typedef struct no No;
 typedef struct cabec Cabec;
+typedef struct empresa Empresa;
 
+struct empresa{
+	int CNPJ;
+	char* nome;
+};
+
+void alocaMemoriaEmpresa(Empresa* empresa){
+	empresa->nome = (char*) malloc(sizeof(char)*30);
+}
 
 struct servicos{
 	int codigo;
@@ -26,16 +35,16 @@ struct cliente{
 	char* telefone;
 };
 
-Cliente alocaMemoriaCliente(Cliente cliente){
-	cliente.nome = (char*)malloc(sizeof(char)*30);
-	cliente.endereco = (char*)malloc(sizeof(char)*30);
-	cliente.bairro = (char*)malloc(sizeof(char)*15);
-	cliente.cep = (char*)malloc(sizeof(char)*10);
-	cliente.cidade = (char*)malloc(sizeof(char)*20);
-	cliente.estado = (char*)malloc(sizeof(char)*2);
-	cliente.telefone = (char*)malloc(sizeof(char)*10);
+void alocaMemoriaCliente(Cliente* cliente){
 
-	return cliente;
+	cliente->nome = (char*)malloc(sizeof(char)*30);
+	cliente->endereco = (char*)malloc(sizeof(char)*30);
+	cliente->bairro = (char*)malloc(sizeof(char)*15);
+	cliente->cep = (char*)malloc(sizeof(char)*10);
+	cliente->cidade = (char*)malloc(sizeof(char)*20);
+	cliente->estado = (char*)malloc(sizeof(char)*2);
+	cliente->telefone = (char*)malloc(sizeof(char)*10);
+
 }
 
 struct data{
@@ -60,7 +69,7 @@ OrdemServico alocaMemoriaOrdemServico(OrdemServico ordemServico){
 
 struct no{
 	int tipoInformacao;
-	void *informacao;
-	No *prox, *ant;
+	void* informacao;
+	No *prox;
 	No *filho;
 };
