@@ -2,7 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Função para percorrer a arvore e achar o cliente específico
+/*
+ Nome: Augusto Moreno
+ O que faz: Percorre a árvore até encontrar um cliente específico;
+ Parametro de Entrada: No* head, int codigo;
+ Parametro de saida: Cliente encontrado;
+*/
 
 No* encontraCliente(No* head, int codigo){
 
@@ -17,7 +22,12 @@ No* encontraCliente(No* head, int codigo){
 	return encontraCliente(head->prox, codigo);
 }
 
-//Função para ler os dados da Ordem de Serviço
+/*
+ Nome: Augusto Moreno
+ O que faz: Lê os dados de uma Ordem de Serviço;
+ Parametro de Entrada: OrdemServico* ordemServico, No* head;
+ Parametro de saida: Cliente encontrado, ordem de serviço;
+*/
 
 No* lerOrdemServico(OrdemServico* ordemServico, No* head){
 	int codigo;
@@ -55,7 +65,13 @@ No* lerOrdemServico(OrdemServico* ordemServico, No* head){
 	return clienteEncontrado;
 }
 
-//Função para cadastrar Ordem de Serviço
+/*
+ Nome: Augusto Moreno
+ O que faz: Insere uma ordem de serviço na árvore;
+ Parametro de Entrada: No* head;
+ Parametro de saida: Ordem de serviço inserida na árvore;
+*/
+
 void cadastraOs(No* head){
     
 	OrdemServico *ordemServico = (OrdemServico*)malloc(sizeof(OrdemServico));
