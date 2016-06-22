@@ -176,12 +176,52 @@ No* excluirCliente(No* head, int codigo){
 	return head;
 }
 
-void ordenaPorNome(No* head){
+int comparaNomeOrdenacao(Cliente* cliente1, Cliente* cliente2){
+	return strcmp(cliente1->nome, cliente2->nome);
+}
 
+void ordenaPorNome(No* head){
+	Cliente* clienteAux;
+	No* aux = head;
+	No* aux2;
+
+	while(aux!=NULL){
+		aux2 = aux;
+		while(aux2!=NULL){
+			if(comparaNomeOrdenacao(aux->informacao, aux2->informacao) > 0){
+				clienteAux = aux->informacao;
+				aux->informacao = aux2->informacao;
+				aux2->informacao = clienteAux;
+			}
+			aux2 = aux2->prox;
+		}
+		aux = aux->prox;
+	}
+
+}
+
+int comparaMaiorCodigo(Cliente *cliente1, Cliente *cliente2){
+	return cliente1->codigo > cliente2->codigo;
 }
 
 void ordenaPorCodigo(No* head){
 
+	Cliente* clienteAux;
+	No* aux = head;
+	No* aux2;
+
+	while(aux!=NULL){
+		aux2 = aux;
+		while(aux2!=NULL){
+			if(comparaMaiorCodigo(aux->informacao, aux2->informacao)){
+				clienteAux = aux->informacao;
+				aux->informacao = aux2->informacao;
+				aux2->informacao = clienteAux;
+			}
+			aux2 = aux2->prox;
+		}
+		aux = aux->prox;
+	}
 }
 
 void impressao(No* head){
