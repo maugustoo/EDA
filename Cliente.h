@@ -26,13 +26,53 @@ void lerString(char *string, int TAMANHOMAX){
 	string[count] = 0;
 }
 
+int comparaCodigo(int codigo, Cliente *cliente){
+	return codigo == cliente->codigo;
+}
+
+void imprimirCliente(Cliente* cliente){
+	printf("Nome Cliente: %s\n", cliente->nome);
+	printf("Codigo: %d\n", cliente->codigo);
+	printf("Endereco: %s\n", cliente->endereco);
+	printf("Bairro: %s\n", cliente->bairro);
+	printf("CEP: %s\n", cliente->cep);
+	printf("Cidade: %s\n", cliente->cidade);
+	printf("Estado: %s\n", cliente->estado);
+	printf("Telefone: %s\n", cliente->telefone);
+}
+
+int codigoERepetido(No* head, int codigo){
+	if(head==NULL)
+		return 0;
+	if(head->tipoInformacao == CLIENTE && comparaCodigo(codigo, (Cliente*)head->informacao)){
+		return 1;
+	}
+	codigoERepetido(head->prox, codigo);
+}
+
+void consultaCodigo(No* head, int codigo){
+
+	if(head==NULL)
+		return;
+	if(head->tipoInformacao == CLIENTE && comparaCodigo(codigo, (Cliente*)head->informacao)){
+		imprimirCliente(head->informacao);
+	}
+
+	consultaCodigo(head->prox, codigo);
+}
+
 //Função para ler os dados do Cliente
-void leituraCliente(Cliente* cliente){
+int leituraCliente(Cliente* cliente, No* head){
 
 	alocaMemoriaCliente(cliente);
 
 	printf("Digita o do codigo ai\n");
 	scanf("%d", &cliente->codigo);
+
+	if(codigoERepetido(head,cliente->codigo)){
+		printf("Ja existe um cliente com este codigo!\nNao e possivel continuar este cadastro\n");
+		return 0;
+	}
 	printf("Digita o nome ai\n");
 	lerString(cliente->nome, 31);
 	printf("Digita o end ai\n");
@@ -48,6 +88,7 @@ void leituraCliente(Cliente* cliente){
 	printf("Digita o telefone ai\n");
 	lerString(cliente->telefone, 11);
 
+	return 1;
 }
 
 //Função para comparar os nomes dos Clientes, para ordenar por nome na hora da inserção
@@ -89,17 +130,6 @@ No* insercaoCliente(No* head, Cliente* cliente){
 	return head;
 }
 
-void imprimirCliente(Cliente* cliente){
-	printf("Nome Cliente: %s\n", cliente->nome);
-	printf("Codigo: %d\n", cliente->codigo);
-	printf("Endereco: %s\n", cliente->endereco);
-	printf("Bairro: %s\n", cliente->bairro);
-	printf("CEP: %s\n", cliente->cep);
-	printf("Cidade: %s\n", cliente->cidade);
-	printf("Estado: %s\n", cliente->estado);
-	printf("Telefone: %s\n", cliente->telefone);
-}
-
 void imprimirEmpresa(Empresa* empresa){
 	printf("Nome Empresa: %s\n", empresa->nome);
 }
@@ -114,21 +144,6 @@ void consultaNome(No* head, char* nome){
 	}
 
 	consultaNome(head->prox, nome);
-}
-
-int comparaCodigo(int codigo, Cliente *cliente){
-	return codigo == cliente->codigo;
-}
-
-void consultaCodigo(No* head, int codigo){
-
-	if(head==NULL)
-		return;
-	if(head->tipoInformacao == CLIENTE && comparaCodigo(codigo, (Cliente*)head->informacao)){
-		imprimirCliente(head->informacao);
-	}
-
-	consultaCodigo(head->prox, codigo);
 }
 
 No* excluirCliente(No* head, int codigo){

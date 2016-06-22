@@ -17,8 +17,8 @@ int main(){
 		switch(opcao){
 			case 1:
 				cliente = (Cliente*)malloc(sizeof(Cliente));
-				leituraCliente(cliente);
-				head = insercaoCliente(head, cliente);
+				if(leituraCliente(cliente, head->filho))
+					head = insercaoCliente(head, cliente);
 			break;
 			case 2:
 				opcaoMenuConsultar = menuConsultar();

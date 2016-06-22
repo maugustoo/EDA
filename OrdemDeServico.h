@@ -25,14 +25,16 @@ No* lerOrdemServico(OrdemServico* ordemServico, No* head){
     
     ordemServico = alocaMemoriaOrdemServico(ordemServico);
 
-    do{  
-        printf("Digite o codigo do Cliente\n");
-        scanf("%d",&codigo);
-        
-        clienteEncontrado = encontraCliente(head, codigo);
-        
-    }while(clienteEncontrado == NULL);
-    
+     
+    printf("Digite o codigo do Cliente\n");
+    scanf("%d",&codigo);
+	
+    clienteEncontrado = encontraCliente(head, codigo);
+
+    if(clienteEncontrado == NULL){
+	printf("Nao existe cliente com este codigo!\n");
+	return NULL;
+    }
     ordemServico->codigoCliente = codigo;
     printf("Digite o código da Ordem de Servico\n");
     scanf("%d",&ordemServico->codigoOrdemServico);
@@ -60,7 +62,10 @@ void cadastraOs(No* head){
 
     No* clienteDasOrdi = lerOrdemServico(ordemServico, head);
     No* novaOrdemServico = (No*)malloc(sizeof(No));
-    
+
+    if(clienteDasOrdi == NULL)
+	return;
+
     novaOrdemServico->tipoInformacao = OS;
     novaOrdemServico->informacao = ordemServico;
     novaOrdemServico->filho = NULL;
