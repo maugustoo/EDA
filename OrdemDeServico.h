@@ -20,61 +20,61 @@ No* encontraCliente(No* head, int codigo){
 //Função para ler os dados da Ordem de Serviço
 
 No* lerOrdemServico(OrdemServico* ordemServico, No* head){
-    int codigo;
-    No* clienteEncontrado = (No*)malloc(sizeof(No));
+	int codigo;
+	No* clienteEncontrado = (No*)malloc(sizeof(No));
     
-    ordemServico = alocaMemoriaOrdemServico(ordemServico);
+	ordemServico = alocaMemoriaOrdemServico(ordemServico);
 
-     
-    printf("Digite o codigo do Cliente\n");
-    scanf("%d",&codigo);
+	printf("Digite o codigo do Cliente\n");
+	scanf("%d",&codigo);
 	
-    clienteEncontrado = encontraCliente(head, codigo);
+	clienteEncontrado = encontraCliente(head, codigo);
 
-    if(clienteEncontrado == NULL){
-	printf("Nao existe cliente com este codigo!\n");
-	return NULL;
-    }
-    ordemServico->codigoCliente = codigo;
-    printf("Digite o código da Ordem de Servico\n");
-    scanf("%d",&ordemServico->codigoOrdemServico);
-    printf("Digite a descricao da Solicitacao\n");
-    lerString(ordemServico->descricaoSolicitacao,49);
-    printf("Digite a prioridade\n");
-    lerString(ordemServico->prioridade,5);
-    printf("Digite a o dia da solicitacao\n");
-    scanf("%d",&ordemServico->dataSolicitacao.dia);
-    printf("Digite o mes da solicitacao\n");
-    scanf("%d",&ordemServico->dataSolicitacao.mes);
-    printf("Digite o ano da solicitacao\n");
-    scanf("%d",&ordemServico->dataSolicitacao.ano);
-    getchar();
-    printf("Digite o status da OS:\nA=Aberta\nF=Fechada\n");
-    scanf("%c", &ordemServico->status);
+	if(clienteEncontrado == NULL){
+		printf("Nao existe cliente com este codigo!\n");
+		return NULL;
+	}
 
-    return clienteEncontrado;
+	ordemServico->codigoCliente = codigo;
+	printf("Digite o código da Ordem de Servico\n");
+	scanf("%d",&ordemServico->codigoOrdemServico);
+	printf("Digite a descricao da Solicitacao\n");
+	lerString(ordemServico->descricaoSolicitacao,49);
+	printf("Digite a prioridade\n");
+	lerString(ordemServico->prioridade,5);
+	printf("Digite a o dia da solicitacao\n");
+	scanf("%d",&ordemServico->dataSolicitacao.dia);
+	printf("Digite o mes da solicitacao\n");
+	scanf("%d",&ordemServico->dataSolicitacao.mes);
+	printf("Digite o ano da solicitacao\n");
+	scanf("%d",&ordemServico->dataSolicitacao.ano);
+	getchar();
+	printf("Digite o status da OS:\nA=Aberta\nF=Fechada\n");
+	scanf("%c", &ordemServico->status);
+
+	return clienteEncontrado;
 }
 
 //Função para cadastrar Ordem de Serviço
 void cadastraOs(No* head){
     
-    OrdemServico *ordemServico = (OrdemServico*)malloc(sizeof(OrdemServico));
+	OrdemServico *ordemServico = (OrdemServico*)malloc(sizeof(OrdemServico));
 
-    No* clienteDasOrdi = lerOrdemServico(ordemServico, head);
-    No* novaOrdemServico = (No*)malloc(sizeof(No));
+	No* clienteDasOrdi = lerOrdemServico(ordemServico, head);
+	No* novaOrdemServico = (No*)malloc(sizeof(No));
 
-    if(clienteDasOrdi == NULL)
-	return;
+	if(clienteDasOrdi == NULL)
+		return;
 
-    novaOrdemServico->tipoInformacao = OS;
-    novaOrdemServico->informacao = ordemServico;
-    novaOrdemServico->filho = NULL;
-    
-    if(clienteDasOrdi->filho == NULL){
-        clienteDasOrdi->filho = novaOrdemServico;
-        novaOrdemServico->prox = NULL;
-    }else{
-        novaOrdemServico->prox = clienteDasOrdi->filho;
-        clienteDasOrdi->filho = novaOrdemServico;
-    }
+	novaOrdemServico->tipoInformacao = OS;
+	novaOrdemServico->informacao = ordemServico;
+	novaOrdemServico->filho = NULL;
+
+	if(clienteDasOrdi->filho == NULL){
+		clienteDasOrdi->filho = novaOrdemServico;
+		novaOrdemServico->prox = NULL;
+	}else{
+		novaOrdemServico->prox = clienteDasOrdi->filho;
+		clienteDasOrdi->filho = novaOrdemServico;
+	}
 }
