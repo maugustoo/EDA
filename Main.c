@@ -4,7 +4,7 @@
 
 int main(){
 
-	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao;
+	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao, codigoCliente, codigoOs;
 	Cliente *cliente;
 	Empresa *empresa;
 	No* head = (No*)malloc(sizeof(No));
@@ -29,12 +29,12 @@ int main(){
 						nome = (char*)malloc(sizeof(char)*30);
 						printf("Digita o nome ai\n");
 						lerString(nome, 31);				
-						consultaNome(head->filho, nome);
+						consultarClientePorNome(head->filho, nome);
 						break;
 					case 2:
 						printf("Digita o codigo ai\n");
 						scanf("%d", &codigo);
-						consultaCodigo(head->filho, codigo);
+						consultarClientePorCodigo(head->filho, codigo);
 						break;
 				}
 
@@ -75,6 +75,12 @@ int main(){
 			case 7:
 				impressaoGeral(head);
 				break;
+			case 8:
+				printf("Digita o codigo do cliente ai\n");
+				scanf("%d", &codigoCliente);
+				printf("Digita o codigo da Ordem de servico ai\n");
+				scanf("%d", &codigoOs);
+				consultarOs(encontraCliente(head->filho, codigoCliente)->filho, codigoOs);
 		}
 
 	}while(opcao!=0);
@@ -92,6 +98,7 @@ int menu(){
 	printf("5) Salvar Dados no Arquivo\n");
 	printf("6) Cadastrar OS\n");
 	printf("7) Mostrar tudo\n");
+	printf("8) Consultar OS\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 

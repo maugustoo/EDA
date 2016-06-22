@@ -84,7 +84,7 @@ int codigoERepetido(No* head, int codigo){
 	Retorno: 
 */
 
-void consultaCodigo(No* head, int codigo){
+void consultarClientePorCodigo(No* head, int codigo){
 
 	if(head==NULL)
 		return;
@@ -92,7 +92,7 @@ void consultaCodigo(No* head, int codigo){
 		imprimirCliente(head->informacao);
 	}
 
-	consultaCodigo(head->prox, codigo);
+	consultarClientePorCodigo(head->prox, codigo);
 }
 
 /*
@@ -201,7 +201,7 @@ void imprimirEmpresa(Empresa* empresa){
 	Retorno: 
 */
 
-void consultaNome(No* head, char* nome){
+void consultarClientePorNome(No* head, char* nome){
 
 	if(head==NULL)
 		return;
@@ -209,7 +209,7 @@ void consultaNome(No* head, char* nome){
 		imprimirCliente(head->informacao);
 	}
 
-	consultaNome(head->prox, nome);
+	consultarClientePorNome(head->prox, nome);
 }
 
 /*

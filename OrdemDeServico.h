@@ -78,3 +78,31 @@ void cadastraOs(No* head){
 		clienteDasOrdi->filho = novaOrdemServico;
 	}
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Comparar o codigo passado com o codigo de uma Ordem de serviço
+	Parâmetro: Codigo, Ordem de serviço
+	Retorno: 1 se o codigo for igual ao codigo da ordem de serviço, 0 caso caso contrário
+*/
+
+int comparaCodigoOs(int codigo, OrdemServico *ordemServico){
+	return codigo == ordemServico->codigoOrdemServico;
+}
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Consultar se um codigo pertece a alguma Ordem de serviço
+	Parâmetro: Codigo, Cabeça da lista de Ordens de serviço
+	Retorno: 
+*/
+
+void consultarOs(No* headListaOs, int codigoOs){
+
+	if(headListaOs==NULL)
+		return;
+	else if(headListaOs->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)headListaOs->informacao)){
+		imprimirOS(headListaOs->informacao);
+	}
+	consultarOs(headListaOs->prox, codigoOs);
+}
