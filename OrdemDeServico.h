@@ -110,15 +110,62 @@ int comparaCodigoOs(int codigo, OrdemServico *ordemServico){
 	Responsavel: Marcelo Augusto
 	Objetivo: Consultar se um codigo pertece a alguma Ordem de serviço
 	Parâmetro: Codigo, Cabeça da lista de Ordens de serviço
-	Retorno: 
+	Retorno: A ordem de serviço referente ao código
 */
 
-void consultarOs(No* headListaOs, int codigoOs){
+No* consultarOs(No* headListaOs, int codigoOs){
 
 	if(headListaOs==NULL)
-		return;
+		return NULL;
 	else if(headListaOs->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)headListaOs->informacao)){
 		imprimirOS(headListaOs->informacao);
+		return headListaOs;
 	}
 	consultarOs(headListaOs->prox, codigoOs);
+}
+
+/*
+ Nome: Augusto Moreno
+ O que faz: Lê os dados de uma Ordem de Serviço;
+ Parametro de Entrada: OrdemServico* ordemServico, No* head;
+ Parametro de saida: Cliente encontrado, ordem de serviço;
+*/
+
+OrdemServico* lerAlteracaoOrdemServico(OrdemServico* ordemServico){
+
+	printf("Descricao antiga: %s\n", ordemServico->descricaoSolicitacao);
+	printf("Digite a nova descricao da Solicitacao\n");
+	lerString(ordemServico->descricaoSolicitacao,49);
+
+	printf("Prioridade registrada: %s\n", ordemServico->prioridade);
+	printf("Digite a nova prioridade\n");
+	lerString(ordemServico->prioridade,5);
+
+	printf("Dia de abertura da ordem de servico registrado: %d\n", ordemServico->dataSolicitacao.dia);
+	printf("Digite o dia da solicitacao\n");
+	scanf("%d",&ordemServico->dataSolicitacao.dia);
+
+
+	printf("Mes de abertura da ordem de servico registrado: %d\n", ordemServico->dataSolicitacao.mes);
+	printf("Digite o mes da solicitacao\n");
+	scanf("%d",&ordemServico->dataSolicitacao.mes);
+
+	printf("Ano de abertura da ordem de servico registrado: %d\n", ordemServico->dataSolicitacao.ano);
+	printf("Digite o ano da solicitacao\n");
+	scanf("%d",&ordemServico->dataSolicitacao.ano);
+
+	getchar();
+	printf("Status registrado da Ordem de Servico: %s\n", (ordemServico->status == 'A') ? "Aberta" : "Fechada");
+	printf("Digite o novo status da OS:\nA=Aberta\nF=Fechada\n");
+	scanf("%c", &ordemServico->status);
+
+	return ordemServico;
+}
+
+
+void alterarOs(No* headListaOs, int codigoOs){
+
+	No* ordemServico = consultarOs(headListaOs, codigoOs);
+	
+	ordemServico->informacao = lerAlteracaoOrdemServico(ordemServico->informacao);
 }

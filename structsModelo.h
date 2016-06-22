@@ -10,7 +10,6 @@ typedef struct cabec Cabec;
 typedef struct empresa Empresa;
 
 
-
 struct empresa{
 	char* nome;
 };

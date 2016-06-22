@@ -81,6 +81,14 @@ int main(){
 				printf("Digita o codigo da Ordem de servico ai\n");
 				scanf("%d", &codigoOs);
 				consultarOs(encontraCliente(head->filho, codigoCliente)->filho, codigoOs);
+				break;
+			case 9:
+				printf("Digita o codigo do cliente ai\n");
+				scanf("%d", &codigoCliente);
+				printf("Digita o codigo da Ordem de servico ai\n");
+				scanf("%d", &codigoOs);
+				alterarOs(encontraCliente(head->filho, codigoCliente)->filho, codigoOs);
+				
 		}
 
 	}while(opcao!=0);
@@ -99,6 +107,7 @@ int menu(){
 	printf("6) Cadastrar OS\n");
 	printf("7) Mostrar tudo\n");
 	printf("8) Consultar OS\n");
+	printf("9) Alterar OS\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 
