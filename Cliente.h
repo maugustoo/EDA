@@ -7,7 +7,12 @@
 #define ATIVIDADE 2
 #define EMPRESA 3
 
-//Função para ler string do tamanho TAMANHOAUX até a quebra de linha
+/*
+	Responsável: Marcelo Augusto
+	Objetivo: Ler string do tamanho TAMANHOAUX até a quebra de linha
+	Parâmetro: String e tamanho maximo da string
+	Retorno: 
+*/
 void lerString(char *string, int TAMANHOMAX){
 	int count = 0;
 	char letraAux;
@@ -26,9 +31,23 @@ void lerString(char *string, int TAMANHOMAX){
 	string[count] = 0;
 }
 
+/*
+	Responsável: Marcelo Augusto
+	Objetivo: Comparar se um código é igual a um código de um cliente
+	Parâmetro: codigo, Cliente
+	Retorno: 1 para código igual, 0 para código diferente
+*/
+
 int comparaCodigo(int codigo, Cliente *cliente){
 	return codigo == cliente->codigo;
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Imprimir informações de um Cliente
+	Parâmetro: Cliente
+	Retorno: 
+*/
 
 void imprimirCliente(Cliente* cliente){
 	printf("Nome Cliente: %s\n", cliente->nome);
@@ -41,6 +60,13 @@ void imprimirCliente(Cliente* cliente){
 	printf("Telefone: %s\n", cliente->telefone);
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Verificar se um codigo é repetido
+	Parâmetro: Cabeca da arvore, Codigo
+	Retorno: 1 para codigo repetido 0 para nao repetido
+*/
+
 int codigoERepetido(No* head, int codigo){
 	if(head==NULL)
 		return 0;
@@ -49,6 +75,14 @@ int codigoERepetido(No* head, int codigo){
 	}
 	codigoERepetido(head->prox, codigo);
 }
+
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Verifica se um cliente tem um codigo, se tiver imprime os dados do cliente
+	Parâmetro: Cabeca da arvore, Codigo
+	Retorno: 
+*/
 
 void consultaCodigo(No* head, int codigo){
 
@@ -61,7 +95,13 @@ void consultaCodigo(No* head, int codigo){
 	consultaCodigo(head->prox, codigo);
 }
 
-//Função para ler os dados do Cliente
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Ler os dados de um Cliente
+	Parâmetro: Cabeca da arvore, Cliente
+	Retorno: 1 para leitura bem sucedida, 0 para leitura mal sucedida
+*/
+
 int leituraCliente(Cliente* cliente, No* head){
 
 	alocaMemoriaCliente(cliente);
@@ -91,12 +131,25 @@ int leituraCliente(Cliente* cliente, No* head){
 	return 1;
 }
 
-//Função para comparar os nomes dos Clientes, para ordenar por nome na hora da inserção
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para comparar os nomes dos Clientes, para ordenar por nome na hora da inserção
+	Parâmetro: String nome, Cliente
+	Retorno: Retorno comparacao entre as duas strings, 0 caso o nome dos dois clientes sejam iguais, < 0 caso o primeiro nome venha antes na ordem lexicográfica, > 0 caso contrário.
+*/
+
 int comparaNome(char* nome, Cliente* clienteAux){
 	return strcmp(nome, clienteAux->nome);
 }
 
-//Função para inserir um cliente na lista
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para inserir um Cliente ordenado por nome na lista do nível de clientes.
+	Parâmetro: Cabeça da árvore, Cliente a se inserir
+	Retorno: Nova cabeça da árvore
+*/
+
 No* insercaoCliente(No* head, Cliente* cliente){
 
 	No* novoCliente = (No*)malloc(sizeof(No));
@@ -130,10 +183,23 @@ No* insercaoCliente(No* head, Cliente* cliente){
 	return head;
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para imprimir as informações da empresa.
+	Parâmetro: Empresa
+	Retorno: 
+*/
+
 void imprimirEmpresa(Empresa* empresa){
 	printf("Nome Empresa: %s\n", empresa->nome);
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Verifica se um cliente tem um nome, se tiver imprime os dados do cliente
+	Parâmetro: Cabeca da arvore, Nome
+	Retorno: 
+*/
 
 void consultaNome(No* head, char* nome){
 
@@ -145,6 +211,13 @@ void consultaNome(No* head, char* nome){
 
 	consultaNome(head->prox, nome);
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Verifica se um cliente tem um codigo, se tiver exclui o cliente
+	Parâmetro: Cabeca da arvore, Codigo
+	Retorno: Nova cabeça da árvore
+*/
 
 No* excluirCliente(No* head, int codigo){
 
@@ -176,9 +249,24 @@ No* excluirCliente(No* head, int codigo){
 	return head;
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para comparar o nome de dois clientes.
+	Parâmetro: Dois Clientes.
+	Retorno: 0 caso o nome dos dois clientes sejam iguais, < 0 caso o primeiro nome venha antes na ordem lexicográfica, > 0 caso contrário.
+*/
+
 int comparaNomeOrdenacao(Cliente* cliente1, Cliente* cliente2){
 	return strcmp(cliente1->nome, cliente2->nome);
 }
+
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para ordenar a lista de Clientes por nome.
+	Parâmetro: Cabeça da lista
+	Retorno: 
+*/
 
 void ordenaPorNome(No* head){
 	Cliente* clienteAux;
@@ -200,9 +288,23 @@ void ordenaPorNome(No* head){
 
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para comparar o codigo de dois clientes.
+	Parâmetro: Dois Clientes.
+	Retorno: 1 Caso o codigo do cliente1 for maior que o do cliente2, 0 caso contrario
+*/
+
 int comparaMaiorCodigo(Cliente *cliente1, Cliente *cliente2){
 	return cliente1->codigo > cliente2->codigo;
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para ordenar a lista de Clientes por codigo.
+	Parâmetro: Cabeça da lista
+	Retorno: 
+*/
 
 void ordenaPorCodigo(No* head){
 
@@ -224,6 +326,13 @@ void ordenaPorCodigo(No* head){
 	}
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para imprimir todos os clientes
+	Parâmetro: Cabeça da lista
+	Retorno: 
+*/
+
 void impressao(No* head){
 
 	if(head==NULL)
@@ -235,6 +344,13 @@ void impressao(No* head){
 	impressao(head->prox);
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para imprimir uma Ordem de Serviço
+	Parâmetro: Ordem de serviço
+	Retorno: 
+*/
+
 void imprimirOS(OrdemServico* ordemServico){
 	printf("Codigo cliente: %d\n", ordemServico->codigoCliente);
 	printf("Codigo OS: %d\n", ordemServico->codigoOrdemServico);
@@ -243,6 +359,13 @@ void imprimirOS(OrdemServico* ordemServico){
 	printf("Data: %d/%d/%d\n", ordemServico->dataSolicitacao.dia, ordemServico->dataSolicitacao.mes, ordemServico->dataSolicitacao.ano);
 	printf("Status: %c\n", ordemServico->status);
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para imprimir todos os dados da árvore.
+	Parâmetro: Cabeça da árvore
+	Retorno: 
+*/
 
 void impressaoGeral(No* head){
 

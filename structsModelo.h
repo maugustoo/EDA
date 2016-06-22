@@ -9,9 +9,18 @@ typedef struct no No;
 typedef struct cabec Cabec;
 typedef struct empresa Empresa;
 
+
+
 struct empresa{
 	char* nome;
 };
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para alocar memória para as strings da Empresa
+	Parâmetro: Empresa
+	Retorno: 
+*/
 
 void alocaMemoriaEmpresa(Empresa* empresa){
 	empresa->nome = (char*) malloc(sizeof(char)*30);
@@ -33,6 +42,13 @@ struct cliente{
 	char* estado;
 	char* telefone;
 };
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para alocar memória para as strings da Cliente
+	Parâmetro: Cliente
+	Retorno: 
+*/
 
 void alocaMemoriaCliente(Cliente* cliente){
 
@@ -60,6 +76,13 @@ struct ordemServico{
 	Data dataSolicitacao;
 	char status;
 };
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Função para alocar memória para as strings da Ordem de Serviço
+	Parâmetro: Ordem de serviço
+	Retorno: 
+*/
 
 OrdemServico* alocaMemoriaOrdemServico(OrdemServico* ordemServico){
 	ordemServico->descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
