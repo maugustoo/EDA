@@ -1,11 +1,10 @@
 #include "structsModelo.h"
 #include "Empresa.h"
-
-int menu();
+#include "OrdemDeServico.h"
 
 int main(){
 
-	int opcao, opcaoMenuConsultar, codigo;
+	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao;
 	Cliente *cliente;
 	Empresa *empresa;
 	No* head = (No*)malloc(sizeof(No));
@@ -47,8 +46,35 @@ int main(){
 				break;
 
 			case 4:
-				impressao(head);
+				opcaoMostrarRelacao = menuMostrarRelacao();
+				switch(opcaoMostrarRelacao){
+					case 0:
+						break;
+					case 1:
+						if(ordenadoPorNome)
+							impressao(head->filho);
+						else{
+							ordenadoPorNome = 1;
+							ordenaPorNome(head->filho);
+							impressao(head->filho);
+						}
+						break;
+					case 2:
+						if(!ordenadoPorNome){
+							impressao(head->filho);
+						}else{
+							ordenadoPorNome = 0;
+							ordenaPorCodigo(head->filho);
+							impressao(head->filho);
+						}
+				}
 			break;
+			case 6:
+			  	cadastraOs(head->filho);
+				break;
+			case 7:
+				impressaoGeral(head);
+				break;
 		}
 
 	}while(opcao!=0);
@@ -64,6 +90,8 @@ int menu(){
 	printf("3) Excluir Cliente\n");
 	printf("4) Mostrar Relacao de Clientes\n");
 	printf("5) Salvar Dados no Arquivo\n");
+	printf("6) Cadastrar OS\n");
+	printf("7) Mostrar tudo\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 
@@ -80,6 +108,20 @@ int menuConsultar(){
 	printf("2) Consultar por codigo\n");
 	printf("0) Sair\n");	
 	printf("----------------------------------------------------------\n");	
+
+	scanf("%d", &opcao);
+
+	return opcao;
+}
+
+int menuMostrarRelacao(){
+	int opcao;
+
+	printf("----------------------------------------------------------\n");
+	printf("1) Relacao em ordem alfabetica de nome\n");
+	printf("2) Relacao em ordem de codigo\n");
+	printf("0) Sair\n");
+	printf("----------------------------------------------------------\n");
 
 	scanf("%d", &opcao);
 

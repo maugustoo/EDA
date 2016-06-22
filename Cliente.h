@@ -5,6 +5,7 @@
 #define CLIENTE 0
 #define OS 1
 #define ATIVIDADE 2
+#define EMPRESA 3
 
 //Função para ler string do tamanho TAMANHOAUX até a quebra de linha
 void lerString(char *string, int TAMANHOMAX){
@@ -140,15 +141,32 @@ No* excluirCliente(No* head, int codigo){
 	}
 	if(auxiliar==NULL){
 		printf("O codigo %d nao e referente a nenhum cliente!\n", codigo);
-	}else if(auxiliarAnt == NULL){
-		head = auxiliar->prox;
-		free(auxiliar);
-	}else if(comparaCodigo(codigo, (Cliente*)auxiliar->informacao)){
-		auxiliarAnt->prox = auxiliar->prox;
-		free(auxiliar);
-	}
 
+	}else if(auxiliarAnt == NULL){
+		if(auxiliar->filho == NULL){
+			head = auxiliar->prox;
+			free(auxiliar);
+		}else{
+			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem ordens de servicos ligadas a ele.\n", codigo);
+		}
+
+	}else if(comparaCodigo(codigo, (Cliente*)auxiliar->informacao)){
+		if(auxiliar->filho == NULL){
+			auxiliarAnt->prox = auxiliar->prox;
+			free(auxiliar);
+		}else{
+			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem ordens de servicos ligadas a ele.\n", codigo);	
+		}
+	}
 	return head;
+}
+
+void ordenaPorNome(No* head){
+
+}
+
+void ordenaPorCodigo(No* head){
+
 }
 
 void impressao(No* head){
@@ -158,9 +176,31 @@ void impressao(No* head){
 
 	if(head->tipoInformacao == CLIENTE)
 		imprimirCliente(head->informacao);
-	else
-		imprimirEmpresa(head->informacao);
 
 	impressao(head->prox);
-	impressao(head->filho);
+}
+
+void imprimirOS(OrdemServico* ordemServico){
+	printf("Codigo cliente: %d\n", ordemServico->codigoCliente);
+	printf("Codigo OS: %d\n", ordemServico->codigoOrdemServico);
+	printf("Descricao: %s\n", ordemServico->descricaoSolicitacao);
+	printf("Prioridade: %s\n", ordemServico->prioridade);
+	printf("Data: %d/%d/%d\n", ordemServico->dataSolicitacao.dia, ordemServico->dataSolicitacao.mes, ordemServico->dataSolicitacao.ano);
+	printf("Status: %c\n", ordemServico->status);
+}
+
+void impressaoGeral(No* head){
+
+	if(head==NULL)
+		return;
+
+	if(head->tipoInformacao == CLIENTE)
+		imprimirCliente(head->informacao);
+	else if(head->tipoInformacao == EMPRESA)
+		imprimirEmpresa(head->informacao);
+	else if(head->tipoInformacao == OS)
+		imprimirOS(head->informacao);
+
+	impressaoGeral(head->filho);
+	impressaoGeral(head->prox);
 }

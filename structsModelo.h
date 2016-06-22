@@ -61,9 +61,9 @@ struct ordemServico{
 	char status;
 };
 
-OrdemServico alocaMemoriaOrdemServico(OrdemServico ordemServico){
-	ordemServico.descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
-	ordemServico.prioridade = (char*)malloc(sizeof(char)*6);
+OrdemServico* alocaMemoriaOrdemServico(OrdemServico* ordemServico){
+	ordemServico->descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
+	ordemServico->prioridade = (char*)malloc(sizeof(char)*6);
 }
 
 struct no{
