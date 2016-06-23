@@ -106,7 +106,12 @@ int comparaCodigoOs(int codigo, OrdemServico *ordemServico){
 	return codigo == ordemServico->codigoOrdemServico;
 }
 
-
+/*
+	Responsavel: Augusto Moreno
+	Objetivo: Consultar se um codigo pertece a alguma Ordem de serviço
+	Parâmetro: Codigo, Cabeça da lista de Ordens de serviço
+	Retorno: A ordem de serviço referente ao código
+*/
 
 No* encontraOs(No* headListaOs, int codigoOs){
 
@@ -177,9 +182,15 @@ OrdemServico* lerAlteracaoOrdemServico(OrdemServico* ordemServico){
 	return ordemServico;
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Alteração de uma ordem de serviço
+	Parâmetro: Codigo, Cabeça da lista de Ordens de serviço
+	Retorno: 
+*/
+
 void alterarOs(No* headListaOs, int codigoOs){
 
-	No* ordemServico = consultarOs(headListaOs, codigoOs);
-	
+	No* ordemServico = consultarOs(headListaOs, codigoOs);	
 	ordemServico->informacao = lerAlteracaoOrdemServico(ordemServico->informacao);
 }

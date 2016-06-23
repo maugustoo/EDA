@@ -40,6 +40,11 @@ void alocaMemoriaDescricaoAtividade(DescricaoAtividade* descricaoAtividade){
 
 }
 
+/*
+	Responsavel: Marcelo Augusto
+*/
+
+
 struct empresa{
 	char* nome;
 };
@@ -54,11 +59,19 @@ void alocaMemoriaEmpresa(Empresa* empresa){
 	empresa->nome = (char*) malloc(sizeof(char)*30);
 }
 
+/*
+	Responsavel: Marcelo Augusto
+*/
+
 struct servicos{
 	int codigo;
 	char* descricao;
 	float valorPorHora;
 };
+
+/*
+	Responsavel: Marcelo Augusto
+*/
 
 struct cliente{
 	int codigo;
@@ -90,11 +103,19 @@ void alocaMemoriaCliente(Cliente* cliente){
 
 }
 
+/*
+	Responsavel: Marcelo Augusto
+*/
+
 struct data{
 	int dia;
 	int mes;
 	int ano;
 };
+
+/*
+	Responsavel: Marcelo Augusto
+*/
 
 struct ordemServico{
 	int codigoCliente;
@@ -116,6 +137,10 @@ OrdemServico* alocaMemoriaOrdemServico(OrdemServico* ordemServico){
 	ordemServico->descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
 	ordemServico->prioridade = (char*)malloc(sizeof(char)*6);
 }
+
+/*
+	Responsavel: Marcelo Augusto
+*/
 
 struct no{
 	int tipoInformacao;
