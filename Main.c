@@ -8,11 +8,12 @@ DescricaoAtividade* defineAtividades(DescricaoAtividade* descricaoAtividade);
 
 int main(){
 
-	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao, codigoCliente, codigoOs;
+	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao, codigoCliente, codigoOs,codigoAtividade;
 	Cliente *cliente;
 	Empresa *empresa;
 	No* clienteEncontrado = (No*)malloc(sizeof(No));
 	No* headOs = (No*)malloc(sizeof(No));
+	No* ordemServicoEncontrada = (No*)malloc(sizeof(No));
 	No* head = (No*)malloc(sizeof(No));
 	char *nome;
 	
@@ -110,6 +111,24 @@ int main(){
 					headOs = excluirOs(clienteEncontrado->filho, codigoOs);
 					clienteEncontrado->filho = headOs;
 				}
+				break;
+			case 12:
+				printf("Digita o codigo do cliente ai\n");
+				scanf("%d", &codigoCliente);
+				printf("Digita o codigo da Ordem de servico ai\n");
+				scanf("%d", &codigoOs);
+				printf("Digita o codigo da Atividade ai\n");
+				scanf("%d", &codigoAtividade);
+				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
+				if(clienteEncontrado != NULL){
+					ordemServicoEncontrada = encontraOs(clienteEncontrado->filho, codigoOs);
+					if(ordemServicoEncontrada != NULL && ordemServicoAberta(ordemServicoEncontrada->informacao)){
+						ordemServicoEncontrada->filho = excluirAtividade(ordemServicoEncontrada->filho,codigoAtividade);
+					}
+					else if(ordemServicoEncontrada == NULL || !ordemServicoAberta(ordemServicoEncontrada->informacao)){
+						printf("Nao e possivel excluir uma atividade em uma ordem de servico fechada.\n");
+					}
+				}
 		}
 
 	}while(opcao!=0);
@@ -131,6 +150,7 @@ int menu(){
 	printf("9) Alterar OS\n");
 	printf("10) Cadastrar Atividade\n");
 	printf("11) Excluir OS\n");
+	printf("12) Excluir Atividade\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 

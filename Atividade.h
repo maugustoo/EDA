@@ -2,16 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-
 /*
  Nome: Augusto Moreno
  O que faz: Lê os dados de uma Atividade;
  Parametro de Entrada: OrdemServico* ordemServico, No* head;
  Parametro de saida: Cliente encontrado, ordem de serviço;
 */
-
 
 Atividade* lerAtividade(Atividade* atividade, No* head){
 	int codigo,codigoOS,codigoAtividade;
@@ -45,6 +41,18 @@ Atividade* lerAtividade(Atividade* atividade, No* head){
 	
 	return atividade;
 	
+}
+
+/*
+	Responsavel:Augusto Morneo
+	Objetivo: Função para comparar um código com o código de uma atividade.
+	Parâmetro: Código da atividade, Atividade
+	Retorno: 1 caso sejam iguais, 0 caso contrário
+*/
+
+
+int comparaCodigoAtividade(Atividade* atividade, int codigoAtividade){
+	return atividade->codigoAtividade == codigoAtividade;
 }
 
 /*
@@ -84,6 +92,37 @@ void cadastraAtividade(No* head){
 		ordemServico->filho = novaAtividade;
 	}
 
-
 }
 
+/*
+	Responsavel:Augusto Morneo
+	Objetivo: Função para excluir uma atividade na lista de atividades.
+	Parâmetro: Cabeça da árvore, Codigo da atividade
+	Retorno: Nova cabeça da ávore de atividades
+*/
+
+
+No* excluirAtividade (No* headAtividades, int codigoAtividade){
+
+	No* auxHeadAtividades = headAtividades;
+	No* auxAnterior = NULL;
+	
+	while(auxHeadAtividades != NULL && !comparaCodigoAtividade((Atividade*)auxHeadAtividades->informacao,codigoAtividade)){
+		auxAnterior = auxHeadAtividades;
+		auxHeadAtividades = auxHeadAtividades->prox;
+	}
+
+	if(auxHeadAtividades == NULL){
+		printf("Não existe atividades cadastradas com o codigo %d.\n",codigoAtividade);			
+	}
+	else if(auxAnterior == NULL){
+		headAtividades = auxHeadAtividades->prox;
+		free(auxHeadAtividades);
+	}
+	else{
+		auxAnterior->prox = auxHeadAtividades->prox;
+		free(auxHeadAtividades);
+	}
+
+	return headAtividades;
+}

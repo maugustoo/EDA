@@ -127,6 +127,18 @@ No* encontraOs(No* headListaOs, int codigoOs){
 }
 
 /*
+	Responsavel:Augusto Morneo
+	Objetivo: Função para verificar se uma ordem de serviço está aberta
+	Parâmetro: Ordem de serviço
+	Retorno: 1 caso a ordem de serviço esteja aberta, 0 caso contrário
+*/
+
+
+int ordemServicoAberta(OrdemServico* ordemServico){
+		return ordemServico->status == 'A';
+}
+
+/*
 	Responsavel: Marcelo Augusto
 	Objetivo: Consultar se um codigo pertece a alguma Ordem de serviço
 	Parâmetro: Codigo, Cabeça da lista de Ordens de serviço
@@ -194,6 +206,14 @@ void alterarOs(No* headListaOs, int codigoOs){
 	No* ordemServico = consultarOs(headListaOs, codigoOs);	
 	ordemServico->informacao = lerAlteracaoOrdemServico(ordemServico->informacao);
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Exclusão de uma ordem de serviço
+	Parâmetro: Codigo da ordem de serviço, cabeça da lista de ordem de serviço
+	Retorno: Nova cabeça da lista de ordem de serviços
+*/
+
 
 No* excluirOs(No* headOs, int codigoOs){
 
