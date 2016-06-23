@@ -106,6 +106,21 @@ int comparaCodigoOs(int codigo, OrdemServico *ordemServico){
 	return codigo == ordemServico->codigoOrdemServico;
 }
 
+
+
+No* encontraOs(No* headListaOs, int codigoOs){
+
+	if(headListaOs==NULL){
+		printf("Nao existe OS cadastrada com esse codigo\n");
+		return NULL;
+	}
+	else if(headListaOs->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)headListaOs->informacao)){
+		return headListaOs;
+	}
+	
+	return encontraOs(headListaOs->prox, codigoOs);
+}
+
 /*
 	Responsavel: Marcelo Augusto
 	Objetivo: Consultar se um codigo pertece a alguma Ordem de serviço
@@ -161,7 +176,6 @@ OrdemServico* lerAlteracaoOrdemServico(OrdemServico* ordemServico){
 
 	return ordemServico;
 }
-
 
 void alterarOs(No* headListaOs, int codigoOs){
 

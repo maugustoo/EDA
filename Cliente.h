@@ -361,6 +361,21 @@ void imprimirOS(OrdemServico* ordemServico){
 }
 
 /*
+	Responsavel: Augusto moreno
+	Objetivo: Função para imprimir uma Atividade
+	Parâmetro: Atividade
+	Retorno: 
+*/
+
+void imprimirAtividade(Atividade* atividade){
+
+	printf("Codigo Cliente: %d\n",atividade->codigoCliente);
+	printf("Codigo da Ordem de Servico: %d\n", atividade->codigoOs);
+	printf("Codigo Atividade: %d\n",atividade->codigoAtividade);
+
+}
+
+/*
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para imprimir todos os dados da árvore.
 	Parâmetro: Cabeça da árvore
@@ -378,6 +393,8 @@ void impressaoGeral(No* head){
 		imprimirEmpresa(head->informacao);
 	else if(head->tipoInformacao == OS)
 		imprimirOS(head->informacao);
+	else if(head->tipoInformacao == ATIVIDADE)
+		imprimirAtividade(head->informacao);
 
 	impressaoGeral(head->filho);
 	impressaoGeral(head->prox);

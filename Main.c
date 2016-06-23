@@ -1,6 +1,10 @@
 #include "structsModelo.h"
 #include "Empresa.h"
 #include "OrdemDeServico.h"
+#include "Atividade.h"
+
+DescricaoAtividade* defineAtividades(DescricaoAtividade* descricaoAtividade);
+
 
 int main(){
 
@@ -9,7 +13,9 @@ int main(){
 	Empresa *empresa;
 	No* head = (No*)malloc(sizeof(No));
 	char *nome;
-
+	
+	DescricaoAtividade* descricaoAtividade = defineAtividades(descricaoAtividade);
+	
 	criaEmpresa(head, empresa);
 
 	do{
@@ -88,7 +94,9 @@ int main(){
 				printf("Digita o codigo da Ordem de servico ai\n");
 				scanf("%d", &codigoOs);
 				alterarOs(encontraCliente(head->filho, codigoCliente)->filho, codigoOs);
-				
+				break;
+			case 10:
+				cadastraAtividade(head);
 		}
 
 	}while(opcao!=0);
@@ -108,6 +116,7 @@ int menu(){
 	printf("7) Mostrar tudo\n");
 	printf("8) Consultar OS\n");
 	printf("9) Alterar OS\n");
+	printf("10) Cadastrar Atividade\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 
@@ -142,4 +151,26 @@ int menuMostrarRelacao(){
 	scanf("%d", &opcao);
 
 	return opcao;
+}
+
+DescricaoAtividade* defineAtividades(DescricaoAtividade* descricaoAtividade){
+	descricaoAtividade = (DescricaoAtividade*)malloc (sizeof(DescricaoAtividade)*8);
+	descricaoAtividade[0].descricao = "Desmontagem";
+	descricaoAtividade[0].valorHora = 30.00;
+	descricaoAtividade[1].descricao = "Serviços de funilaria";
+	descricaoAtividade[1].valorHora = 120.00;
+	descricaoAtividade[2].descricao = "Serviços de pintura";
+	descricaoAtividade[2].valorHora = 180.00;
+	descricaoAtividade[3].descricao = "Serviços de eletricidade";
+	descricaoAtividade[3].valorHora = 90.00;
+	descricaoAtividade[4].descricao = "Serviços de mecânica";
+	descricaoAtividade[4].valorHora = 110.00;
+	descricaoAtividade[5].descricao =  "Alinhamento/balanceamento";
+	descricaoAtividade[5].valorHora = 40.00;
+	descricaoAtividade[6].descricao = "Lavagem";
+	descricaoAtividade[6].valorHora = 25.00;
+	descricaoAtividade[7].descricao = "Polimento";
+	descricaoAtividade[7].valorHora = 35.00;
+	
+	return descricaoAtividade;
 }

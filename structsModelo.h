@@ -8,12 +8,41 @@ typedef struct data Data;
 typedef struct no No;
 typedef struct cabec Cabec;
 typedef struct empresa Empresa;
+typedef struct atividade Atividade;
+typedef struct descricaoAtividade DescricaoAtividade;
 
+/*
+	Responsavel: Augusto Moreno
+*/
+
+struct atividade{
+	int codigoCliente;
+	int codigoOs;
+	int codigoAtividade;
+};
+
+/*
+	Responsavel: Augusto Moreno
+*/
+
+struct descricaoAtividade{
+	char* descricao;
+	float valorHora;
+};
+
+/*
+	Responsavel: Augusto Moreno
+*/
+
+void alocaMemoriaDescricaoAtividade(DescricaoAtividade* descricaoAtividade){
+	
+	descricaoAtividade->descricao = (char*) malloc(sizeof(char)*30);
+
+}
 
 struct empresa{
 	char* nome;
 };
-
 /*
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para alocar memória para as strings da Empresa
