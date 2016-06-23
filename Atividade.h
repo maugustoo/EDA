@@ -66,6 +66,7 @@ void cadastraAtividade(No* head){
 	atividade = lerAtividade(atividade,head);
 	novaAtividade->informacao = atividade;
 	novaAtividade->tipoInformacao = ATIVIDADE;
+	novaAtividade->filho = NULL;
 	
 	if(atividade == NULL)
 		return;
@@ -77,6 +78,7 @@ void cadastraAtividade(No* head){
 	
 	if(ordemServico->filho == NULL){
 		ordemServico->filho = novaAtividade;
+		novaAtividade->prox = NULL;
 	}else{
 		novaAtividade->prox = ordemServico->filho;
 		ordemServico->filho = novaAtividade;

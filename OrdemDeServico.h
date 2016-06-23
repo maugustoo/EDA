@@ -194,3 +194,33 @@ void alterarOs(No* headListaOs, int codigoOs){
 	No* ordemServico = consultarOs(headListaOs, codigoOs);	
 	ordemServico->informacao = lerAlteracaoOrdemServico(ordemServico->informacao);
 }
+
+No* excluirOs(No* headOs, int codigoOs){
+
+	No *auxiliar = headOs, *auxiliarAnt = NULL;
+
+	while(auxiliar!=NULL && !comparaCodigoOs(codigoOs, auxiliar->informacao)){
+		auxiliarAnt = auxiliar;
+		auxiliar = auxiliar->prox;
+	}
+	if(auxiliar==NULL){
+		printf("O codigo %d nao e referente a nenhuma Ordem de Servico!\n", codigoOs);
+
+	}else if(auxiliarAnt == NULL){
+		if(auxiliar->filho == NULL){
+			headOs = auxiliar->prox;
+			free(auxiliar);
+		}else{
+			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem atividades ligadas a ele.\n", codigoOs);
+		}
+
+	}else if(comparaCodigoOs(codigoOs, auxiliar->informacao)){
+		if(auxiliar->filho == NULL){
+			auxiliarAnt->prox = auxiliar->prox;
+			free(auxiliar);
+		}else{
+			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem atividades ligadas a ele.\n", codigoOs);	
+		}
+	}
+	return headOs;
+}

@@ -11,6 +11,8 @@ int main(){
 	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao, codigoCliente, codigoOs;
 	Cliente *cliente;
 	Empresa *empresa;
+	No* clienteEncontrado = (No*)malloc(sizeof(No));
+	No* headOs = (No*)malloc(sizeof(No));
 	No* head = (No*)malloc(sizeof(No));
 	char *nome;
 	
@@ -97,6 +99,17 @@ int main(){
 				break;
 			case 10:
 				cadastraAtividade(head);
+				break;
+			case 11:
+				printf("Digita o codigo do cliente ai\n");
+				scanf("%d", &codigoCliente);
+				printf("Digita o codigo da Ordem de servico ai\n");
+				scanf("%d", &codigoOs);
+				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
+				if(clienteEncontrado != NULL){
+					headOs = excluirOs(clienteEncontrado->filho, codigoOs);
+					clienteEncontrado->filho = headOs;
+				}
 		}
 
 	}while(opcao!=0);
@@ -117,6 +130,7 @@ int menu(){
 	printf("8) Consultar OS\n");
 	printf("9) Alterar OS\n");
 	printf("10) Cadastrar Atividade\n");
+	printf("11) Excluir OS\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 
