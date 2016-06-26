@@ -1,9 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "../inc/Empresa.h"
 
-#include "Cliente.h"
-
-#define EMPRESA 3
+void alocaMemoriaEmpresa(Empresa* empresa){
+	empresa->nome = (char*) malloc(sizeof(char)*30);
+}
 
 void criaEmpresa(No* head, Empresa* empresa){
 
@@ -17,5 +16,8 @@ void criaEmpresa(No* head, Empresa* empresa){
 	head->tipoInformacao = EMPRESA;
 	head->filho = NULL;
 	head->prox = NULL;
+}
 
+void imprimirEmpresa(Empresa* empresa){
+	printf("Nome Empresa: %s\n", empresa->nome);
 }

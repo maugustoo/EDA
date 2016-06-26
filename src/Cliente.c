@@ -1,17 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../inc/Cliente.h"
 
-#define CLIENTE 0
-#define OS 1
-#define ATIVIDADE 2
-#define EMPRESA 3
-
+void alocaMemoriaCliente(Cliente *cliente){
+	cliente->nome = (char*)malloc(sizeof(char)*30);
+	cliente->endereco = (char*)malloc(sizeof(char)*60);
+	cliente->bairro = (char*)malloc(sizeof(char)*30);
+  cliente->cep = (char*)malloc(sizeof(char)*9);
+	cliente->cidade = (char*)malloc(sizeof(char)*30);
+	cliente->estado = (char*)malloc(sizeof(char)*30);
+	cliente->telefone = (char*)malloc(sizeof(char)*20);
+}
 /*
 	Responsável: Marcelo Augusto
 	Objetivo: Ler string do tamanho TAMANHOAUX até a quebra de linha
 	Parâmetro: String e tamanho maximo da string
-	Retorno: 
+	Retorno:
 */
 void lerString(char *string, int TAMANHOMAX){
 	int count = 0;
@@ -46,7 +48,7 @@ int comparaCodigo(int codigo, Cliente *cliente){
 	Responsavel: Marcelo Augusto
 	Objetivo: Imprimir informações de um Cliente
 	Parâmetro: Cliente
-	Retorno: 
+	Retorno:
 */
 
 void imprimirCliente(Cliente* cliente){
@@ -81,7 +83,7 @@ int codigoERepetido(No* head, int codigo){
 	Responsavel: Marcelo Augusto
 	Objetivo: Verifica se um cliente tem um codigo, se tiver imprime os dados do cliente
 	Parâmetro: Cabeca da arvore, Codigo
-	Retorno: 
+	Retorno:
 */
 
 void consultarClientePorCodigo(No* head, int codigo){
@@ -187,18 +189,18 @@ No* insercaoCliente(No* head, Cliente* cliente){
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para imprimir as informações da empresa.
 	Parâmetro: Empresa
-	Retorno: 
+	Retorno:
 */
 
-void imprimirEmpresa(Empresa* empresa){
-	printf("Nome Empresa: %s\n", empresa->nome);
-}
+// void imprimirEmpresa(Empresa* empresa){
+// 	printf("Nome Empresa: %s\n", empresa->nome);
+// }
 
 /*
 	Responsavel: Marcelo Augusto
 	Objetivo: Verifica se um cliente tem um nome, se tiver imprime os dados do cliente
 	Parâmetro: Cabeca da arvore, Nome
-	Retorno: 
+	Retorno:
 */
 
 void consultarClientePorNome(No* head, char* nome){
@@ -243,7 +245,7 @@ No* excluirCliente(No* head, int codigo){
 			auxiliarAnt->prox = auxiliar->prox;
 			free(auxiliar);
 		}else{
-			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem ordens de servicos ligadas a ele.\n", codigo);	
+			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem ordens de servicos ligadas a ele.\n", codigo);
 		}
 	}
 	return head;
@@ -265,7 +267,7 @@ int comparaNomeOrdenacao(Cliente* cliente1, Cliente* cliente2){
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para ordenar a lista de Clientes por nome.
 	Parâmetro: Cabeça da lista
-	Retorno: 
+	Retorno:
 */
 
 void ordenaPorNome(No* head){
@@ -303,7 +305,7 @@ int comparaMaiorCodigo(Cliente *cliente1, Cliente *cliente2){
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para ordenar a lista de Clientes por codigo.
 	Parâmetro: Cabeça da lista
-	Retorno: 
+	Retorno:
 */
 
 void ordenaPorCodigo(No* head){
@@ -330,7 +332,7 @@ void ordenaPorCodigo(No* head){
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para imprimir todos os clientes
 	Parâmetro: Cabeça da lista
-	Retorno: 
+	Retorno:
 */
 
 void impressao(No* head){
@@ -348,38 +350,38 @@ void impressao(No* head){
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para imprimir uma Ordem de Serviço
 	Parâmetro: Ordem de serviço
-	Retorno: 
+	Retorno:
 */
 
-void imprimirOS(OrdemServico* ordemServico){
-	printf("Codigo cliente: %d\n", ordemServico->codigoCliente);
-	printf("Codigo OS: %d\n", ordemServico->codigoOrdemServico);
-	printf("Descricao: %s\n", ordemServico->descricaoSolicitacao);
-	printf("Prioridade: %s\n", ordemServico->prioridade);
-	printf("Data: %d/%d/%d\n", ordemServico->dataSolicitacao.dia, ordemServico->dataSolicitacao.mes, ordemServico->dataSolicitacao.ano);
-	printf("Status: %c\n", ordemServico->status);
-}
+// void imprimirOS(OrdemServico* ordemServico){
+// 	printf("Codigo cliente: %d\n", ordemServico->codigoCliente);
+// 	printf("Codigo OS: %d\n", ordemServico->codigoOrdemServico);
+// 	printf("Descricao: %s\n", ordemServico->descricaoSolicitacao);
+// 	printf("Prioridade: %s\n", ordemServico->prioridade);
+// 	printf("Data: %d/%d/%d\n", ordemServico->dataSolicitacao.dia, ordemServico->dataSolicitacao.mes, ordemServico->dataSolicitacao.ano);
+// 	printf("Status: %c\n", ordemServico->status);
+// }
 
 /*
 	Responsavel: Augusto moreno
 	Objetivo: Função para imprimir uma Atividade
 	Parâmetro: Atividade
-	Retorno: 
+	Retorno:
 */
 
-void imprimirAtividade(Atividade* atividade){
-
-	printf("Codigo Cliente: %d\n",atividade->codigoCliente);
-	printf("Codigo da Ordem de Servico: %d\n", atividade->codigoOs);
-	printf("Codigo Atividade: %d\n",atividade->codigoAtividade);
-
-}
+// void imprimirAtividade(Atividade* atividade){
+//
+// 	printf("Codigo Cliente: %d\n",atividade->codigoCliente);
+// 	printf("Codigo da Ordem de Servico: %d\n", atividade->codigoOs);
+// 	printf("Codigo Atividade: %d\n",atividade->codigoAtividade);
+//
+// }
 
 /*
 	Responsavel: Marcelo Augusto
 	Objetivo: Função para imprimir todos os dados da árvore.
 	Parâmetro: Cabeça da árvore
-	Retorno: 
+	Retorno:
 */
 
 void impressaoGeral(No* head){

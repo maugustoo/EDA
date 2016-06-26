@@ -1,6 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../inc/OrdemDeServico.h"
+
+OrdemServico* alocaMemoriaOrdemServico(OrdemServico* ordemServico){
+	ordemServico->descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
+	ordemServico->prioridade = (char*)malloc(sizeof(char)*6);
+}
 
 /*
  Nome: Augusto Moreno
@@ -9,17 +12,18 @@
  Parametro de saida: Cliente encontrado;
 */
 
-No* encontraCliente(No* head, int codigo){
+No* consultarCliente(No* head, int codigo){
 
 	if(head==NULL){
 		printf("Não existe cliente cadastrado com esse codigo\n");
 		return NULL;
 	}
-	else if(head->tipoInformacao == CLIENTE && comparaCodigo(codigo, (Cliente*)head->informacao)){
+	else if(head->tipoInformacao == CLIENTE && comparaCodigo(codigo,
+		(Cliente*)head->informacao)){
 		return head;
 	}
-	
-	return encontraCliente(head->prox, codigo);
+
+	return consultarCliente(head->prox, codigo);
 }
 
 /*
@@ -32,13 +36,13 @@ No* encontraCliente(No* head, int codigo){
 No* lerOrdemServico(OrdemServico* ordemServico, No* head){
 	int codigo;
 	No* clienteEncontrado = (No*)malloc(sizeof(No));
-    
+
 	ordemServico = alocaMemoriaOrdemServico(ordemServico);
 
 	printf("Digite o codigo do Cliente\n");
 	scanf("%d",&codigo);
-	
-	clienteEncontrado = encontraCliente(head, codigo);
+
+	clienteEncontrado = consultarCliente(head, codigo);
 
 	if(clienteEncontrado == NULL){
 		printf("Nao existe cliente com este codigo!\n");
@@ -73,7 +77,7 @@ No* lerOrdemServico(OrdemServico* ordemServico, No* head){
 */
 
 void cadastraOs(No* head){
-    
+
 	OrdemServico *ordemServico = (OrdemServico*)malloc(sizeof(OrdemServico));
 
 	No* clienteDasOrdi = lerOrdemServico(ordemServico, head);
@@ -122,20 +126,8 @@ No* encontraOs(No* headListaOs, int codigoOs){
 	else if(headListaOs->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)headListaOs->informacao)){
 		return headListaOs;
 	}
-	
+
 	return encontraOs(headListaOs->prox, codigoOs);
-}
-
-/*
-	Responsavel:Augusto Morneo
-	Objetivo: Função para verificar se uma ordem de serviço está aberta
-	Parâmetro: Ordem de serviço
-	Retorno: 1 caso a ordem de serviço esteja aberta, 0 caso contrário
-*/
-
-
-int ordemServicoAberta(OrdemServico* ordemServico){
-		return ordemServico->status == 'A';
 }
 
 /*
@@ -198,13 +190,22 @@ OrdemServico* lerAlteracaoOrdemServico(OrdemServico* ordemServico){
 	Responsavel: Marcelo Augusto
 	Objetivo: Alteração de uma ordem de serviço
 	Parâmetro: Codigo, Cabeça da lista de Ordens de serviço
-	Retorno: 
+	Retorno:
 */
 
 void alterarOs(No* headListaOs, int codigoOs){
 
-	No* ordemServico = consultarOs(headListaOs, codigoOs);	
+	No* ordemServico = consultarOs(headListaOs, codigoOs);
 	ordemServico->informacao = lerAlteracaoOrdemServico(ordemServico->informacao);
+}
+
+void imprimirOS(OrdemServico* ordemServico){
+	printf("Codigo cliente: %d\n", ordemServico->codigoCliente);
+	printf("Codigo OS: %d\n", ordemServico->codigoOrdemServico);
+	printf("Descricao: %s\n", ordemServico->descricaoSolicitacao);
+	printf("Prioridade: %s\n", ordemServico->prioridade);
+	printf("Data: %d/%d/%d\n", ordemServico->dataSolicitacao.dia, ordemServico->dataSolicitacao.mes, ordemServico->dataSolicitacao.ano);
+	printf("Status: %c\n", ordemServico->status);
 }
 
 /*
@@ -213,7 +214,6 @@ void alterarOs(No* headListaOs, int codigoOs){
 	Parâmetro: Codigo da ordem de serviço, cabeça da lista de ordem de serviço
 	Retorno: Nova cabeça da lista de ordem de serviços
 */
-
 
 No* excluirOs(No* headOs, int codigoOs){
 
@@ -239,7 +239,7 @@ No* excluirOs(No* headOs, int codigoOs){
 			auxiliarAnt->prox = auxiliar->prox;
 			free(auxiliar);
 		}else{
-			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem atividades ligadas a ele.\n", codigoOs);	
+			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem atividades ligadas a ele.\n", codigoOs);
 		}
 	}
 	return headOs;
