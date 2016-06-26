@@ -4,6 +4,10 @@
 #include "../inc/Atividade.h"
 #include "../inc/Cliente.h"
 
+int menu();
+int menuConsultar();
+int menuMostrarRelacao();
+
 DescricaoAtividade* defineAtividades(DescricaoAtividade* descricaoAtividade);
 
 // void impressaoGeral(No* head){
@@ -26,17 +30,20 @@ DescricaoAtividade* defineAtividades(DescricaoAtividade* descricaoAtividade);
 
 int main(){
 
-	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao, codigoCliente, codigoOs;
-	Cliente *cliente;
-	Empresa *empresa;
+	int opcao, opcaoMenuConsultar, codigo, ordenadoPorNome = 1, opcaoMostrarRelacao,codigoAtividade, codigoCliente, codigoOs;
+	Cliente *cliente = NULL;
+	Empresa *empresa = NULL;
 	No* head = (No*)malloc(sizeof(No));
+	No* clienteEncontrado = NULL;
+	No *ordemServicoEncontrada = NULL;
 	char *nome;
 
-	DescricaoAtividade* descricaoAtividade = defineAtividades(descricaoAtividade);
+	DescricaoAtividade* descricaoAtividade = NULL;
+	descricaoAtividade = defineAtividades(descricaoAtividade);
 
 	criaEmpresa(head, empresa);
 
-	No* clienteEncontrado = NULL;
+
 
 	do{
 		opcao = menu();
@@ -127,27 +134,42 @@ int main(){
 				cadastraAtividade(head);
 				break;
 			case 11:
-			lerAtividade(atividade, head);
-			if(lerAtividade(atividade, head) != NULL){
-				printf("Atividade não pode ser exlcuida\n");
-			} else {
-				imprimirAtividade(lerAtividade(atividade, head));
-				printf("Deseja excluir essa Atividade ?[y/n]\n");
-				scanf("%c", &confirmaExcluir);
-				if(confirmaExcluir == 'y') {
-							excluirAtividade(headAtividades, codigoAtividade);
-							printf("Atividade excluida\n");
-				} else {
-					printf("Operacao cancelada\n");
-				}
+			printf("Digita o codigo do cliente ai\n");
+			scanf("%d", &codigoCliente);
+			printf("Digita o codigo da Ordem de servico ai\n");
+			scanf("%d", &codigoOs);
+			clienteEncontrado = consultarCliente(head->filho, codigoCliente);
+			ordemServicoEncontrada = encontraOs(head->filho, codigoOs);
+			if(clienteEncontrado != NULL && ordemServicoEncontrada != NULL){
+				No *headOs = excluirOs(clienteEncontrado->filho, codigoOs);
+				clienteEncontrado->filho = headOs;
 			}
 				break;
 			case 12:
-			lerOrdemServico(ordemServico,head);
-			
+			printf("Digita o codigo do cliente ai\n");
+			scanf("%d", &codigoCliente);
+			printf("Digita o codigo da Ordem de servico ai\n");
+			scanf("%d", &codigoOs);
+			printf("Digita o codigo da Atividade ai\n");
+			scanf("%d", &codigoAtividade);
+			clienteEncontrado = consultarCliente(head->filho, codigoCliente);
+			if(clienteEncontrado != NULL){
+				ordemServicoEncontrada = encontraOs(clienteEncontrado->filho, codigoOs);
+				if(ordemServicoEncontrada != NULL && ordemServicoAberta(ordemServicoEncontrada->informacao)){
+					ordemServicoEncontrada->filho = excluirAtividade(ordemServicoEncontrada->filho,codigoAtividade);
+				}
+				else if(ordemServicoEncontrada == NULL || !ordemServicoAberta(ordemServicoEncontrada->informacao)){
+					printf("Nao e possivel excluir uma atividade em uma ordem de servico fechada.\n");
+				}
+			}
+				break;
+			case 13:
+				valorArrecadadoPorAtividade(head->filho, descricaoAtividade);
+
 		}
 
 	}while(opcao!=0);
+return 0;
 }
 
 int menu(){
@@ -165,8 +187,9 @@ int menu(){
 	printf("8) Consultar OS\n");
 	printf("9) Alterar OS\n");
 	printf("10) Cadastrar Atividade\n");
-	printf("11) Excluir Atividade\n");
-	printf("13) Excluir Ordem de Servico\n");
+	printf("11) Excluir Ordem de Servico\n");
+	printf("12) Excluir Atividade\n");
+	printf("13) Valor arrecadado por atividade\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 

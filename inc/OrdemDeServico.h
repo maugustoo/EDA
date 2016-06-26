@@ -56,9 +56,12 @@ No* lerOrdemServico(OrdemServico*, No*);
 void cadastraOs(No*);
 int comparaCodigoOs(int, OrdemServico*);
 No* encontraOs(No*, int);
+int ordemServicoAberta(OrdemServico* ordemServico);
 No* consultarOs(No*, int);
 OrdemServico* lerAlteracaoOrdemServico(OrdemServico*);
 void alterarOs(No*, int);
+int mesOs(OrdemServico*);
+void pesquisaMesOs(No*, int, int*);
 void imprimirOS(OrdemServico*);
 No* excluirOs(No*, int);
 

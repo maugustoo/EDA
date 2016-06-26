@@ -3,6 +3,8 @@
 OrdemServico* alocaMemoriaOrdemServico(OrdemServico* ordemServico){
 	ordemServico->descricaoSolicitacao = (char*)malloc(sizeof(char)*50);
 	ordemServico->prioridade = (char*)malloc(sizeof(char)*6);
+
+	return ordemServico;
 }
 
 /*
@@ -131,6 +133,18 @@ No* encontraOs(No* headListaOs, int codigoOs){
 }
 
 /*
+	Responsavel:Augusto Morneo
+	Objetivo: Função para verificar se uma ordem de serviço está aberta
+	Parâmetro: Ordem de serviço
+	Retorno: 1 caso a ordem de serviço esteja aberta, 0 caso contrário
+*/
+
+
+int ordemServicoAberta(OrdemServico* ordemServico){
+		return ordemServico->status == 'A';
+}
+
+/*
 	Responsavel: Marcelo Augusto
 	Objetivo: Consultar se um codigo pertece a alguma Ordem de serviço
 	Parâmetro: Codigo, Cabeça da lista de Ordens de serviço
@@ -144,8 +158,10 @@ No* consultarOs(No* headListaOs, int codigoOs){
 	else if(headListaOs->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)headListaOs->informacao)){
 		imprimirOS(headListaOs->informacao);
 		return headListaOs;
+	} else {
+			consultarOs(headListaOs->prox, codigoOs);
 	}
-	consultarOs(headListaOs->prox, codigoOs);
+	return NULL;
 }
 
 /*
@@ -197,6 +213,36 @@ void alterarOs(No* headListaOs, int codigoOs){
 
 	No* ordemServico = consultarOs(headListaOs, codigoOs);
 	ordemServico->informacao = lerAlteracaoOrdemServico(ordemServico->informacao);
+}
+
+/*
+ Responsavel: Marcelo Augusto
+ Objetivo: Resgatar o mes de uma ordem de serviço
+ Parâmetro: Ordem de serviço
+ Retorno: Mes da Ordem de serviço
+*/
+
+int mesOs(OrdemServico* ordemServico){
+	return ordemServico->dataSolicitacao.mes;
+}
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Pesquisar o mes de uma ordem de serviço
+	Parâmetro: Cabeça do nivel da árvore referente aos clientes, codigo da Os pesquisada
+	Retorno:
+*/
+
+void pesquisaMesOs(No* head, int codigoOs, int* mes){
+	if(head==NULL)
+		return;
+
+	if(head->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)head->informacao)){
+		printf("mes OS %d\n", mesOs(head->informacao));
+		mes[0] = mesOs(head->informacao);
+	}
+	pesquisaMesOs(head->filho, codigoOs, mes);
+	pesquisaMesOs(head->prox, codigoOs, mes);
 }
 
 void imprimirOS(OrdemServico* ordemServico){

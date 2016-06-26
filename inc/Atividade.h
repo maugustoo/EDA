@@ -12,6 +12,7 @@ struct atividade {
 	int codigoCliente;
 	int codigoOs;
 	int codigoAtividade;
+	int qtdHorasGastas;
 };
 
 struct descricaoAtividade {
@@ -24,6 +25,9 @@ Atividade* lerAtividade(Atividade*, No*);
 int comparaCodigoAtividade(Atividade*, int);
 void cadastraAtividade(No*);
 No* excluirAtividade (No*, int);
+float calculaValor(No*, Atividade*, DescricaoAtividade*, int, int);
+void calculaValorArrecadado(No* , float*, int, int, DescricaoAtividade*, No*);
+void valorArrecadadoPorAtividade(No*, DescricaoAtividade*);
 void imprimirAtividade(Atividade*);
 
 #endif
