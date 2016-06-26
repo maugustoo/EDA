@@ -132,53 +132,75 @@ No* excluirAtividade (No* headAtividades, int codigoAtividade){
 }
 
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Resgatar o mes de uma ordem de serviço
+	Parâmetro: Ordem de serviço
+	Retorno: Mes da Ordem de serviço
+*/
+
 int mesOs(OrdemServico* ordemServico){
 	return ordemServico->dataSolicitacao.mes;
 }
 
-int codigo(OrdemServico* ordemServico){
-	return ordemServico->codigoOrdemServico;
-}
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Pesquisar o mes de uma ordem de serviço
+	Parâmetro: Cabeça do nivel da árvore referente aos clientes, codigo da Os pesquisada
+	Retorno: 
+*/
 
-int pesquisaMesOs(No* head, int codigoOs){
+void pesquisaMesOs(No* head, int codigoOs, int* mes){
 
 	if(head==NULL)
 		return;
 
-	printf("codigos pesquisados %d %d\n", codigoOs, codigo((OrdemServico*)head->informacao));
-	printf("head tipo info %d %d\n", head->tipoInformacao, OS);
-
 	if(head->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)head->informacao)){
-		printf("mes OS %d\n", mesOs(head->informacao));
-		return mesOs(head->informacao);
+		mes[0] = mesOs(head->informacao);
 	}
 
-	return pesquisaMesOs(head->filho, codigoOs);
-	return pesquisaMesOs(head->prox, codigoOs);
+	pesquisaMesOs(head->filho, codigoOs, mes);
+	pesquisaMesOs(head->prox, codigoOs, mes);
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Calcula o valor arrecadado por uma atividade que segue os critérios
+	Parâmetro: Cabeça do nivel da árvore referente aos clientes, Atividade, Descrição das atividades, Atividade pesquisada, Mes pesquisado
+	Retorno: Valor calculado para a atividade
+*/
 
 float calculaValor(No* head, Atividade* atividade, DescricaoAtividade* descricaoAtividade, int atividadePesquisada, int mesPesquisado){
 
-	printf("%d %d %d\n", pesquisaMesOs(head, atividade->codigoOs), atividade->codigoOs, mesPesquisado);
+	int *mes = (int*)malloc(sizeof(int));
 
-	if(atividade->codigoAtividade == atividadePesquisada && pesquisaMesOs(head, atividade->codigoOs) == mesPesquisado){
-		printf("entrou\n");
+	pesquisaMesOs(head, atividade->codigoOs, mes);
+
+	if(atividade->codigoAtividade == atividadePesquisada &&  mes[0] == mesPesquisado){
 		return atividade->qtdHorasGastas * descricaoAtividade[atividade->codigoAtividade].valorHora;
 	}
 
 }
 
-float calculaValorArrecadado(No* head, float valorArrecadado, int atividadePesquisada, int mesPesquisado, DescricaoAtividade* descricaoAtividade, No* headAux){
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Calcula o valor arrecadado de todas as atividades que seguirem os critérios
+	Parâmetro: Cabeça do nivel da árvore referente aos clientes, Valor arrecadado, Atividade pesquisada, Mes pesquisado, Descrição das atividades, Cabeça do nivel da árvore referente aos clientes auxiliar
+	Retorno: 
+*/
 
+void calculaValorArrecadado(No* head, float* valorArrecadado, int atividadePesquisada, int mesPesquisado, DescricaoAtividade* descricaoAtividade, No* headAux){
 
 	if(head==NULL)
-		return;
+		return ;
 
-	if(head->tipoInformacao == ATIVIDADE)
-		return calculaValor(headAux, head->informacao, descricaoAtividade, atividadePesquisada, mesPesquisado);
+	if(head->tipoInformacao == ATIVIDADE){
+		valorArrecadado[0] += calculaValor(headAux, head->informacao, descricaoAtividade, atividadePesquisada, mesPesquisado);
+	}
 
-	valorArrecadado+=calculaValorArrecadado(head->filho, valorArrecadado, atividadePesquisada, mesPesquisado, descricaoAtividade, headAux);
-	valorArrecadado+=calculaValorArrecadado(head->prox, valorArrecadado, atividadePesquisada, mesPesquisado, descricaoAtividade, headAux);
+	calculaValorArrecadado(head->filho, valorArrecadado, atividadePesquisada, mesPesquisado, descricaoAtividade, headAux);
+	calculaValorArrecadado(head->prox, valorArrecadado, atividadePesquisada, mesPesquisado, descricaoAtividade, headAux);
+
 }
 
 /*
@@ -192,6 +214,8 @@ void valorArrecadadoPorAtividade(No* head, DescricaoAtividade* descricaoAtividad
 
 
 	int mesPesquisado, atividadePesquisada;
+	float *valorArrecadado = (float*)malloc(sizeof(float));
+	valorArrecadado[0] = 0;
 
 
 	printf("Digite a atividade que se deseja calcular o valor arrecadado\n");
@@ -200,6 +224,7 @@ void valorArrecadadoPorAtividade(No* head, DescricaoAtividade* descricaoAtividad
 	printf("Digite o mes ao qual se deseja calcular o valor arrecadado pela atividade %d.\n", atividadePesquisada);
 	scanf("%d", &mesPesquisado);
 
-	printf("O valor arrecadado pela Atividade %d no mes %d foi: %.2fR$\n",  atividadePesquisada, mesPesquisado, calculaValorArrecadado(head, 0, atividadePesquisada, mesPesquisado, descricaoAtividade, head));
+	calculaValorArrecadado(head, valorArrecadado, atividadePesquisada, mesPesquisado, descricaoAtividade, head);
 
+	printf("O valor arrecadado pela Atividade %d no mes %d foi: %.2fR$\n",  atividadePesquisada, mesPesquisado, valorArrecadado[0]);
 }
