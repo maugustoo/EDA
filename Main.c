@@ -133,6 +133,9 @@ int main(){
 						printf("Nao e possivel excluir uma atividade em uma ordem de servico fechada.\n");
 					}
 				}
+				break;
+			case 13:
+				valorArrecadadoPorAtividade(head->filho, descricaoAtividade);
 		}
 
 	}while(opcao!=0);
@@ -155,6 +158,7 @@ int menu(){
 	printf("10) Cadastrar Atividade\n");
 	printf("11) Excluir OS\n");
 	printf("12) Excluir Atividade\n");
+	printf("13) Valor arrecadado por atividade\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 

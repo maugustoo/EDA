@@ -372,6 +372,7 @@ void imprimirAtividade(Atividade* atividade){
 	printf("Codigo Cliente: %d\n",atividade->codigoCliente);
 	printf("Codigo da Ordem de Servico: %d\n", atividade->codigoOs);
 	printf("Codigo Atividade: %d\n",atividade->codigoAtividade);
+	printf("Quantidade de horas gastas: %d\n", atividade->qtdHorasGastas);
 
 }
 

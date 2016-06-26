@@ -19,6 +19,7 @@ struct atividade{
 	int codigoCliente;
 	int codigoOs;
 	int codigoAtividade;
+	int qtdHorasGastas;
 };
 
 /*
@@ -59,15 +60,6 @@ void alocaMemoriaEmpresa(Empresa* empresa){
 	empresa->nome = (char*) malloc(sizeof(char)*30);
 }
 
-/*
-	Responsavel: Marcelo Augusto
-*/
-
-struct servicos{
-	int codigo;
-	char* descricao;
-	float valorPorHora;
-};
 
 /*
 	Responsavel: Marcelo Augusto
