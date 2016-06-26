@@ -89,14 +89,18 @@ int main(){
 				scanf("%d", &codigoCliente);
 				printf("Digita o codigo da Ordem de servico ai\n");
 				scanf("%d", &codigoOs);
-				consultarOs(encontraCliente(head->filho, codigoCliente)->filho, codigoOs);
+				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
+				if(clienteEncontrado != NULL)
+					consultarOs(clienteEncontrado->filho, codigoOs);
 				break;
 			case 9:
 				printf("Digita o codigo do cliente ai\n");
 				scanf("%d", &codigoCliente);
 				printf("Digita o codigo da Ordem de servico ai\n");
 				scanf("%d", &codigoOs);
-				alterarOs(encontraCliente(head->filho, codigoCliente)->filho, codigoOs);
+				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
+				if(clienteEncontrado != NULL)
+					alterarOs(clienteEncontrado->filho, codigoOs);
 				break;
 			case 10:
 				cadastraAtividade(head);
