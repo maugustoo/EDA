@@ -2,9 +2,10 @@
 #include "Empresa.h"
 #include "OrdemDeServico.h"
 #include "Atividade.h"
+#include "Arquivo.h"
 
 DescricaoAtividade* defineAtividades(DescricaoAtividade* descricaoAtividade);
-
+void criaBanco();
 
 int main(){
 
@@ -20,6 +21,8 @@ int main(){
 	DescricaoAtividade* descricaoAtividade = defineAtividades(descricaoAtividade);
 	
 	criaEmpresa(head, empresa);
+
+	lerDados(head);
 
 	do{
 		opcao = menu();
@@ -78,6 +81,10 @@ int main(){
 						}
 				}
 			break;
+			case 5:
+				criaBanco();
+				salvarDadosArquivo(head->filho);
+				break;
 			case 6:
 			  	cadastraOs(head->filho);
 				break;
@@ -139,6 +146,21 @@ int main(){
 		}
 
 	}while(opcao!=0);
+}
+
+void criaBanco(){
+	FILE *arquivoOriginal, *arquivoAposExclusao;
+
+	arquivoOriginal = fopen("BancoDados.txt", "r");
+	arquivoAposExclusao = fopen("BancoDadosAuxiliar.txt", "w");
+
+	if(!arquivoOriginal || !arquivoAposExclusao){
+		printf("\n\t\t*** Houve um erro ao abrir o arquivo, o programa sera fechado! ***");
+		getchar();
+		exit(0);
+	}
+	unlink("BancoDados.txt");
+	rename("BancoDadosAuxiliar.txt", "BancoDados.txt");	
 }
 
 int menu(){

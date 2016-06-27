@@ -92,7 +92,6 @@ void alocaMemoriaCliente(Cliente* cliente){
 	cliente->cidade = (char*)malloc(sizeof(char)*20);
 	cliente->estado = (char*)malloc(sizeof(char)*2);
 	cliente->telefone = (char*)malloc(sizeof(char)*10);
-
 }
 
 /*

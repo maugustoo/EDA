@@ -179,7 +179,6 @@ float calculaValor(No* head, Atividade* atividade, DescricaoAtividade* descricao
 	if(atividade->codigoAtividade == atividadePesquisada &&  mes[0] == mesPesquisado){
 		return atividade->qtdHorasGastas * descricaoAtividade[atividade->codigoAtividade].valorHora;
 	}
-
 }
 
 /*
