@@ -46,21 +46,58 @@ No* lerOrdemServico(OrdemServico* ordemServico, No* head){
 	}
 
 	ordemServico->codigoCliente = codigo;
+
 	printf("Digite o código da Ordem de Servico: \n");
 	scanf("%d",&ordemServico->codigoOrdemServico);
+
 	printf("Digite a descricao da Solicitacao: \n");
 	lerString(ordemServico->descricaoSolicitacao,49);
-	printf("Digite a prioridade: \n");
-	lerString(ordemServico->prioridade,5);
-	printf("Digite a o dia da solicitacao: \n");
-	scanf("%d",&ordemServico->dataSolicitacao.dia);
-	printf("Digite o mes da solicitacao: \n");
-	scanf("%d",&ordemServico->dataSolicitacao.mes);
-	printf("Digite o ano da solicitacao: \n");
-	scanf("%d",&ordemServico->dataSolicitacao.ano);
+
+	do{
+		printf("Digite a prioridade: (ALTA, MEDIA ou BAIXA)\n");
+		lerString(ordemServico->prioridade,50);
+
+		if(!validaPrioridade(ordemServico->prioridade))
+			printf("\n\n*****PRIORIDADE INVALIDA! Digite novamente!*****\n");
+
+	}while(!validaPrioridade(ordemServico->prioridade));
+
+	do{
+		printf("Digite a o dia da solicitacao: \n");
+		scanf("%d",&ordemServico->dataSolicitacao.dia);
+
+		if(!validaDia(ordemServico->dataSolicitacao.dia))
+			printf("\n\n*****DIA INVALIDO! Digite novamente!*****\n");
+	}while(!validaDia(ordemServico->dataSolicitacao.dia));
+
+	do{
+		printf("Digite o mes da solicitacao: \n");
+		scanf("%d",&ordemServico->dataSolicitacao.mes);
+
+		if(!validaMes(ordemServico->dataSolicitacao.mes))
+			printf("\n\n*****MES INVALIDO! Digite novamente!*****\n");
+	}while(!validaMes(ordemServico->dataSolicitacao.mes));
+
+	do{
+		printf("Digite o ano da solicitacao: \n");
+		scanf("%d",&ordemServico->dataSolicitacao.ano);
+
+		if(!validaAno(ordemServico->dataSolicitacao.ano))
+			printf("\n\n*****ANO INVALIDO! Digite novamente!*****\n");
+	}while(!validaAno(ordemServico->dataSolicitacao.ano));
+	
 	getchar();
-	printf("Digite o status da OS:\nA=Aberta\nF=Fechada\n");
-	scanf("%c", &ordemServico->status);
+
+	do{
+		printf("Digite o status da OS:\nA=Aberta\nF=Fechada\n");
+		scanf("%c", &ordemServico->status);
+
+		if(!validaStatus(ordemServico->status)){
+			printf("\n\n*****STATUS INVALIDO! Digite novamente!*****\n");
+			getchar();
+		}
+
+	}while(!validaStatus(ordemServico->status));
 
 	return clienteEncontrado;
 }
@@ -168,31 +205,64 @@ No* consultarOs(No* headListaOs, int codigoOs){
 
 OrdemServico* lerAlteracaoOrdemServico(OrdemServico* ordemServico){
 
+
 	printf("Descricao antiga: %s\n", ordemServico->descricaoSolicitacao);
 	printf("Digite a nova descricao da Solicitacao\n");
 	lerString(ordemServico->descricaoSolicitacao,49);
 
 	printf("Prioridade registrada: %s\n", ordemServico->prioridade);
-	printf("Digite a nova prioridade\n");
-	lerString(ordemServico->prioridade,5);
+
+	do{
+		printf("\nDigite a nova prioridade: (ALTA, MEDIA ou BAIXA)\n");
+		lerString(ordemServico->prioridade,50);
+
+		if(!validaPrioridade(ordemServico->prioridade))
+			printf("\n\n*****PRIORIDADE INVALIDA! Digite novamente!*****\n");
+
+	}while(!validaPrioridade(ordemServico->prioridade));
 
 	printf("Dia de abertura da ordem de servico registrado: %d\n", ordemServico->dataSolicitacao.dia);
-	printf("Digite o dia da solicitacao\n");
-	scanf("%d",&ordemServico->dataSolicitacao.dia);
 
+	do{
+		printf("\nDigite a o dia da solicitacao: \n");
+		scanf("%d",&ordemServico->dataSolicitacao.dia);
+
+		if(!validaDia(ordemServico->dataSolicitacao.dia))
+			printf("\n\n*****DIA INVALIDO! Digite novamente!*****\n");
+	}while(!validaDia(ordemServico->dataSolicitacao.dia));
 
 	printf("Mes de abertura da ordem de servico registrado: %d\n", ordemServico->dataSolicitacao.mes);
-	printf("Digite o mes da solicitacao\n");
-	scanf("%d",&ordemServico->dataSolicitacao.mes);
+
+	do{
+		printf("\nDigite o mes da solicitacao: \n");
+		scanf("%d",&ordemServico->dataSolicitacao.mes);
+
+		if(!validaMes(ordemServico->dataSolicitacao.mes))
+			printf("\n\n*****MES INVALIDO! Digite novamente!*****\n");
+	}while(!validaMes(ordemServico->dataSolicitacao.mes));
 
 	printf("Ano de abertura da ordem de servico registrado: %d\n", ordemServico->dataSolicitacao.ano);
-	printf("Digite o ano da solicitacao\n");
-	scanf("%d",&ordemServico->dataSolicitacao.ano);
 
+	do{
+		printf("\nDigite o ano da solicitacao: \n");
+		scanf("%d",&ordemServico->dataSolicitacao.ano);
+
+		if(!validaAno(ordemServico->dataSolicitacao.ano))
+			printf("\n\n*****ANO INVALIDO! Digite novamente!*****\n");
+	}while(!validaAno(ordemServico->dataSolicitacao.ano));
+	
 	getchar();
 	printf("Status registrado da Ordem de Servico: %s\n", (ordemServico->status == 'A') ? "Aberta" : "Fechada");
-	printf("Digite o novo status da OS:\nA=Aberta\nF=Fechada\n");
-	scanf("%c", &ordemServico->status);
+	do{
+		printf("\nDigite o status da OS:\nA=Aberta\nF=Fechada\n");
+		scanf("%c", &ordemServico->status);
+
+		if(!validaStatus(ordemServico->status)){
+			printf("\n\n*****STATUS INVALIDO! Digite novamente!*****\n");
+			getchar();
+		}
+
+	}while(!validaStatus(ordemServico->status));
 
 	return ordemServico;
 }
@@ -233,14 +303,18 @@ No* excluirOs(No* headOs, int codigoOs){
 		if(auxiliar->filho == NULL){
 			headOs = auxiliar->prox;
 			free(auxiliar);
+			printf("\33[H\33[2J");
+			printf("Ordem de servico excluida com sucesso\n");
 		}else{
-			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem atividades ligadas a ele.\n", codigoOs);
+			printf("Nao foi possivel excluir a Ordem de servico do codigo %d. Pois o mesmo tem atividades ligadas a ele.\n", codigoOs);
 		}
 
 	}else if(comparaCodigoOs(codigoOs, auxiliar->informacao)){
 		if(auxiliar->filho == NULL){
 			auxiliarAnt->prox = auxiliar->prox;
 			free(auxiliar);
+			printf("\33[H\33[2J");
+			printf("Ordem de servico excluida com sucesso\n");
 		}else{
 			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem atividades ligadas a ele.\n", codigoOs);	
 		}

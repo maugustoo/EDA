@@ -32,11 +32,20 @@ Atividade* lerAtividade(Atividade* atividade, No* head){
 		return NULL;
 	}
 	
-	printf("Digite o codigo da Atividade: \n");
-	scanf("%d",&codigoAtividade);
-	
-	printf("Digite a quantidade de horas gastas na atividade: \n");
-	scanf("%d", &quantidadeDeHorasGastas);
+	do{
+		printf("Digite o codigo da Atividade: \n");
+		scanf("%d",&codigoAtividade);
+
+		if(!validaCodigoAtividade(codigoAtividade))
+			printf("\n\n*****Codigo da atividade incorreto! Digite novamente!*****\n");
+
+	}while(!validaCodigoAtividade(codigoAtividade));
+	do{
+		printf("Digite a quantidade de horas gastas na atividade: \n");
+		scanf("%d", &quantidadeDeHorasGastas);
+		if(!validaInt(quantidadeDeHorasGastas))
+			printf("\n\n*****Quantidade invalida! Digite novamente!*****\n");
+	}while(!validaInt(quantidadeDeHorasGastas));
 
 	atividade->codigoAtividade = codigoAtividade;
 	atividade->codigoCliente = codigo;
@@ -87,15 +96,18 @@ void cadastraAtividade(No* head){
 	
 	ordemServico = encontraOs(clienteEncontrado->filho,atividade->codigoOs);
 	
-	
-	if(ordemServico->filho == NULL){
-		ordemServico->filho = novaAtividade;
-		novaAtividade->prox = NULL;
+	if(ordemServicoAberta(ordemServico->informacao)){
+		if(ordemServico->filho == NULL){
+			ordemServico->filho = novaAtividade;
+			novaAtividade->prox = NULL;
+		}else{
+			novaAtividade->prox = ordemServico->filho;
+			ordemServico->filho = novaAtividade;
+		}
 	}else{
-		novaAtividade->prox = ordemServico->filho;
-		ordemServico->filho = novaAtividade;
+		printf("\33[H\33[2J");
+		printf("Nao e possivel cadastrar uma atividade para uma Ordem de servico fechada!\n");
 	}
-
 }
 
 /*
@@ -108,24 +120,33 @@ void cadastraAtividade(No* head){
 
 No* excluirAtividade (No* headAtividades, int codigoAtividade){
 
-	No* auxHeadAtividades = headAtividades;
+	No* auxHeadAtividades = headAtividades->filho;
 	No* auxAnterior = NULL;
 	
-	while(auxHeadAtividades != NULL && !comparaCodigoAtividade((Atividade*)auxHeadAtividades->informacao,codigoAtividade)){
-		auxAnterior = auxHeadAtividades;
-		auxHeadAtividades = auxHeadAtividades->prox;
-	}
+	if(ordemServicoAberta(headAtividades->informacao)){
+		while(auxHeadAtividades != NULL && !comparaCodigoAtividade((Atividade*)auxHeadAtividades->informacao,codigoAtividade)){
+			auxAnterior = auxHeadAtividades;
+			auxHeadAtividades = auxHeadAtividades->prox;
+		}
 
-	if(auxHeadAtividades == NULL){
-		printf("\nNão existe atividades cadastradas com o codigo %d.\n",codigoAtividade);			
-	}
-	else if(auxAnterior == NULL){
-		headAtividades = auxHeadAtividades->prox;
-		free(auxHeadAtividades);
-	}
-	else{
-		auxAnterior->prox = auxHeadAtividades->prox;
-		free(auxHeadAtividades);
+		if(auxHeadAtividades == NULL){
+			printf("\nNão existe atividades cadastradas com o codigo %d.\n",codigoAtividade);			
+		}
+		else if(auxAnterior == NULL){
+			headAtividades = auxHeadAtividades->prox;
+			free(auxHeadAtividades);
+			printf("\33[H\33[2J");
+			printf("Atividade excluida com sucesso!\n");
+		}
+		else{
+			auxAnterior->prox = auxHeadAtividades->prox;
+			free(auxHeadAtividades);
+			printf("\33[H\33[2J");
+			printf("Atividade excluida com sucesso!\n");
+		}
+	}else{
+		printf("\33[H\33[2J");
+		printf("Nao e possivel excluir uma atividade para uma Ordem de servico fechada!\n");
 	}
 
 	return headAtividades;
@@ -225,5 +246,6 @@ void valorArrecadadoPorAtividade(No* head, DescricaoAtividade* descricaoAtividad
 
 	calculaValorArrecadado(head, valorArrecadado, atividadePesquisada, mesPesquisado, descricaoAtividade, head);
 
+	printf("\33[H\33[2J");
 	printf("O valor arrecadado pela Atividade %d no mes %d foi: R$%.2f\n",  atividadePesquisada, mesPesquisado, valorArrecadado[0]);
 }

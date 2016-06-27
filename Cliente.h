@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define CLIENTE 0
 #define OS 1
@@ -26,7 +27,7 @@ void lerString(char *string, int TAMANHOMAX){
 		if(letraAux == '\n')
 			break;
 
-		string[count] = letraAux;
+		string[count] = toupper(letraAux);
 	}
 	string[count] = 0;
 }
@@ -124,11 +125,21 @@ int leituraCliente(Cliente* cliente, No* head){
 	lerString(cliente->cep, 11);
 	printf("Digita a cidade do cliente: \n");
 	lerString(cliente->cidade, 21);
-	printf("Digita o estado do cliente: \n");
-	lerString(cliente->estado, 3);
-	printf("Digita o telefone do cliente: \n");
-	lerString(cliente->telefone, 11);
 
+	do{
+		printf("Digita a UF do estado do cliente: \n");
+		lerString(cliente->estado, 30);
+		if(!validaEstado(cliente->estado))
+			printf("\n\n*****UF INVALIDA! Digite novamente!*****\n");
+	}while(!validaEstado(cliente->estado));
+
+	do{
+		printf("Digita o telefone do cliente: \n");
+		lerString(cliente->telefone, 30);
+		if(!validaTelefone(cliente->telefone))
+			printf("\n\n*****NUMERO DE TELEFONE INVALIDO! Digite novamente!*****\n");
+
+	}while(!validaTelefone(cliente->telefone));
 	return 1;
 }
 

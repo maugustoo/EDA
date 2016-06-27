@@ -1,3 +1,4 @@
+#include "Validacao.h"
 #include "structsModelo.h"
 #include "Empresa.h"
 #include "OrdemDeServico.h"
@@ -27,12 +28,15 @@ int main(){
 	do{
 		opcao = menu();
 		switch(opcao){
+			case 0:
+			break;
 			case 1:
 				printf("\33[H\33[2J");
 				cliente = (Cliente*)malloc(sizeof(Cliente));
 				if(leituraCliente(cliente, head->filho))
 					head = insercaoCliente(head, cliente);
 				printf("\n\nPressione ENTER para continuar!\n");
+				getchar();
 				getchar();
 			break;
 			case 2:
@@ -60,18 +64,15 @@ int main(){
 						printf("\n\nPressione ENTER para continuar!\n");
 						getchar();
 						getchar();
+						break;
+					default:
+						printf("\33[H\33[2J");
+						printf("OPCAO DO MENU INVALIDA!\n");
+						getchar();
+						getchar();
 				}
 			break;
 			case 3:
-				printf("\33[H\33[2J");
-				printf("Digite o codigo do cliente\n");
-				scanf("%d", &codigo);
-				head->filho = excluirCliente(head->filho, codigo);
-				printf("\n\nPressione ENTER para continuar!\n");
-				getchar();
-				getchar();
-				break;
-			case 4:
 				printf("\33[H\33[2J");
 				opcaoMostrarRelacao = menuMostrarRelacao();
 				switch(opcaoMostrarRelacao){
@@ -101,31 +102,32 @@ int main(){
 						}
 						printf("\n\nPressione ENTER para continuar!\n");
 						getchar();
-						getchar();					
+						getchar();
+						break;
+					default:
+						printf("\33[H\33[2J");
+						printf("OPCAO DO MENU INVALIDA!\n");
+						getchar();
+						getchar();
 				}
 			break;
-			case 5:
-				criaBanco();
-				salvarDadosArquivo(head->filho);
+			case 4:
 				printf("\33[H\33[2J");
-				printf("Dados salvos com sucesso!");
+				printf("Digite o codigo do cliente\n");
+				scanf("%d", &codigo);
+				head->filho = excluirCliente(head->filho, codigo);
+				printf("\n\nPressione ENTER para continuar!\n");
 				getchar();
 				getchar();
-				break;
-			case 6:
+			break;
+			case 5:
 				printf("\33[H\33[2J");
 			  	cadastraOs(head->filho);
 				printf("\n\nPressione ENTER para continuar!\n");
 				getchar();
 				getchar();
-				break;
-			case 7:
-				printf("\33[H\33[2J");
-				impressaoGeral(head);
-				getchar();
-				getchar();
-				break;
-			case 8:
+			break;
+			case 6:
 				printf("\33[H\33[2J");
 				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
@@ -140,8 +142,8 @@ int main(){
 				printf("\n\nPressione ENTER para continuar!\n");
 				getchar();
 				getchar();
-				break;
-			case 9:
+			break;
+			case 7:
 				printf("\33[H\33[2J");
 				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
@@ -153,16 +155,12 @@ int main(){
 					ordemServicoEncontrada = encontraOs(clienteEncontrado->filho, codigoOs);
 				if(clienteEncontrado != NULL && ordemServicoEncontrada != NULL)
 					alterarOs(clienteEncontrado->filho, codigoOs);
+
+				printf("\n\nPressione ENTER para continuar!\n");
 				getchar();
 				getchar();
-				break;
-			case 10:
-				printf("\33[H\33[2J");
-				cadastraAtividade(head);
-				getchar();
-				getchar();
-				break;
-			case 11:
+			break;
+			case 8:
 				printf("\33[H\33[2J");
 				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
@@ -173,10 +171,18 @@ int main(){
 					headOs = excluirOs(clienteEncontrado->filho, codigoOs);
 					clienteEncontrado->filho = headOs;
 				}
+				printf("\n\nPressione ENTER para continuar!\n");
 				getchar();
 				getchar();
-				break;
-			case 12:
+			break;
+			case 9:
+				printf("\33[H\33[2J");
+				cadastraAtividade(head);
+				printf("\n\nPressione ENTER para continuar!\n");
+				getchar();
+				getchar();
+			break;
+			case 10:
 				printf("\33[H\33[2J");
 				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
@@ -188,17 +194,34 @@ int main(){
 				if(clienteEncontrado != NULL){
 					ordemServicoEncontrada = encontraOs(clienteEncontrado->filho, codigoOs);
 					if(ordemServicoEncontrada != NULL && ordemServicoAberta(ordemServicoEncontrada->informacao)){
-						ordemServicoEncontrada->filho = excluirAtividade(ordemServicoEncontrada->filho,codigoAtividade);
+						ordemServicoEncontrada->filho = excluirAtividade(ordemServicoEncontrada,codigoAtividade);
 					}
 					else if(ordemServicoEncontrada == NULL || !ordemServicoAberta(ordemServicoEncontrada->informacao)){
-						printf("Nao e possivel excluir uma atividade em uma ordem de servico fechada.\n");
+						printf("\n\nNao e possivel excluir uma atividade em uma ordem de servico fechada.\n");
 					}
 				}
+				printf("\n\nPressione ENTER para continuar!\n");
 				getchar();
 				getchar();
-				break;
-			case 13:
+			break;
+			case 11:
+				printf("\33[H\33[2J");
 				valorArrecadadoPorAtividade(head->filho, descricaoAtividade);
+				printf("\n\nPressione ENTER para continuar!\n");
+				getchar();
+				getchar();
+			break;
+			case 12:
+				criaBanco();
+				salvarDadosArquivo(head->filho);
+				printf("\33[H\33[2J");
+				printf("Dados salvos com sucesso!");
+				getchar();
+				getchar();
+			break;
+			default:
+				printf("\33[H\33[2J");
+				printf("OPCAO DO MENU INVALIDA!\n");
 				getchar();
 				getchar();
 		}
@@ -227,19 +250,23 @@ int menu(){
 
 	printf("\33[H\33[2J");
 	printf("----------------------------------------------------------\n");
+	printf("                        MENU GERAL\n");
+	printf("----------------------------------------------------------\n");
 	printf("1) Cadastrar Novo Cliente\n");
 	printf("2) Consultar Dados de Um Cliente\n");
-	printf("3) Excluir Cliente\n");
-	printf("4) Mostrar Relacao de Clientes\n");
-	printf("5) Salvar Dados no Arquivo\n");
-	printf("6) Cadastrar OS\n");
-	printf("7) Mostrar tudo\n");
-	printf("8) Consultar OS\n");
-	printf("9) Alterar OS\n");
-	printf("10) Cadastrar Atividade\n");
-	printf("11) Excluir OS\n");
-	printf("12) Excluir Atividade\n");
-	printf("13) Valor arrecadado por atividade\n");
+	printf("3) Mostrar Relacao de Clientes\n");
+	printf("4) Excluir Cliente\n");
+	printf("----------------------------------------------------------\n");
+	printf("5) Cadastrar OS\n");
+	printf("6) Consultar OS\n");
+	printf("7) Alterar OS\n");
+	printf("8) Excluir OS\n");
+	printf("----------------------------------------------------------\n");
+	printf("9) Cadastrar Atividade\n");
+	printf("10) Excluir Atividade\n");
+	printf("11) Valor arrecadado por atividade\n");
+	printf("----------------------------------------------------------\n");
+	printf("12) Salvar Dados no Arquivo\n");
 	printf("0) Sair\n");
 	printf("----------------------------------------------------------\n");
 
@@ -251,6 +278,8 @@ int menu(){
 int menuConsultar(){
 	int opcao;
 	printf("\33[H\33[2J");
+	printf("----------------------------------------------------------\n");
+	printf("                      CONSULTAR CLIENTE\n");
 	printf("----------------------------------------------------------\n");
 	printf("1) Consultar por nome\n");
 	printf("2) Consultar por codigo\n");
@@ -265,6 +294,8 @@ int menuConsultar(){
 int menuMostrarRelacao(){
 	int opcao;
 	printf("\33[H\33[2J");
+	printf("----------------------------------------------------------\n");
+	printf("                      LISTAR CLIENTES\n");
 	printf("----------------------------------------------------------\n");
 	printf("1) Relacao em ordem alfabetica de nome\n");
 	printf("2) Relacao em ordem de codigo\n");
