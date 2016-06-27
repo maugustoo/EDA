@@ -28,41 +28,57 @@ int main(){
 		opcao = menu();
 		switch(opcao){
 			case 1:
+				printf("\33[H\33[2J");
 				cliente = (Cliente*)malloc(sizeof(Cliente));
 				if(leituraCliente(cliente, head->filho))
 					head = insercaoCliente(head, cliente);
+				printf("\n\nPressione ENTER para continuar!\n");
+				getchar();
 			break;
 			case 2:
+				printf("\33[H\33[2J");
 				opcaoMenuConsultar = menuConsultar();
 				switch(opcaoMenuConsultar){
 					case 0:
 						break;
 					case 1:
 						nome = (char*)malloc(sizeof(char)*30);
-						printf("Digita o nome ai\n");
-						lerString(nome, 31);				
+						printf("Digite o nome do cliente: \n");
+						lerString(nome, 31);
+						printf("\33[H\33[2J");
+						printf("Lista de clientes com o nome %s: \n", nome);
 						consultarClientePorNome(head->filho, nome);
+						printf("\n\nPressione ENTER para continuar!\n");
+						getchar();
 						break;
 					case 2:
-						printf("Digita o codigo ai\n");
+						printf("Digite o codigo do cliente: \n");
 						scanf("%d", &codigo);
+						printf("\33[H\33[2J");
+						printf("Lista de clientes com o codigo %d: \n", codigo);
 						consultarClientePorCodigo(head->filho, codigo);
-						break;
+						printf("\n\nPressione ENTER para continuar!\n");
+						getchar();
+						getchar();
 				}
-
 			break;
 			case 3:
-				printf("Digita o codigo ai\n");
+				printf("\33[H\33[2J");
+				printf("Digite o codigo do cliente\n");
 				scanf("%d", &codigo);
 				head->filho = excluirCliente(head->filho, codigo);
+				printf("\n\nPressione ENTER para continuar!\n");
+				getchar();
+				getchar();
 				break;
-
 			case 4:
+				printf("\33[H\33[2J");
 				opcaoMostrarRelacao = menuMostrarRelacao();
 				switch(opcaoMostrarRelacao){
 					case 0:
 						break;
 					case 1:
+						printf("\33[H\33[2J");
 						if(ordenadoPorNome)
 							impressao(head->filho);
 						else{
@@ -70,8 +86,12 @@ int main(){
 							ordenaPorNome(head->filho);
 							impressao(head->filho);
 						}
+						printf("\n\nPressione ENTER para continuar!\n");
+						getchar();
+						getchar();
 						break;
 					case 2:
+						printf("\33[H\33[2J");
 						if(!ordenadoPorNome){
 							impressao(head->filho);
 						}else{
@@ -79,56 +99,90 @@ int main(){
 							ordenaPorCodigo(head->filho);
 							impressao(head->filho);
 						}
+						printf("\n\nPressione ENTER para continuar!\n");
+						getchar();
+						getchar();					
 				}
 			break;
 			case 5:
 				criaBanco();
 				salvarDadosArquivo(head->filho);
+				printf("\33[H\33[2J");
+				printf("Dados salvos com sucesso!");
+				getchar();
+				getchar();
 				break;
 			case 6:
+				printf("\33[H\33[2J");
 			  	cadastraOs(head->filho);
+				printf("\n\nPressione ENTER para continuar!\n");
+				getchar();
+				getchar();
 				break;
 			case 7:
+				printf("\33[H\33[2J");
 				impressaoGeral(head);
+				getchar();
+				getchar();
 				break;
 			case 8:
-				printf("Digita o codigo do cliente ai\n");
+				printf("\33[H\33[2J");
+				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
-				printf("Digita o codigo da Ordem de servico ai\n");
+				printf("Digite o codigo da Ordem de servico: \n");
 				scanf("%d", &codigoOs);
 				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
-				if(clienteEncontrado != NULL)
+				if(clienteEncontrado != NULL){
+					printf("\33[H\33[2J");
+					encontraOs(clienteEncontrado->filho, codigoOs);
 					consultarOs(clienteEncontrado->filho, codigoOs);
+				}
+				printf("\n\nPressione ENTER para continuar!\n");
+				getchar();
+				getchar();
 				break;
 			case 9:
-				printf("Digita o codigo do cliente ai\n");
+				printf("\33[H\33[2J");
+				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
-				printf("Digita o codigo da Ordem de servico ai\n");
+				printf("Digite o codigo da Ordem de servico: \n");
 				scanf("%d", &codigoOs);
+				printf("\33[H\33[2J");
 				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
 				if(clienteEncontrado != NULL)
+					ordemServicoEncontrada = encontraOs(clienteEncontrado->filho, codigoOs);
+				if(clienteEncontrado != NULL && ordemServicoEncontrada != NULL)
 					alterarOs(clienteEncontrado->filho, codigoOs);
+				getchar();
+				getchar();
 				break;
 			case 10:
+				printf("\33[H\33[2J");
 				cadastraAtividade(head);
+				getchar();
+				getchar();
 				break;
 			case 11:
-				printf("Digita o codigo do cliente ai\n");
+				printf("\33[H\33[2J");
+				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
-				printf("Digita o codigo da Ordem de servico ai\n");
+				printf("Digite o codigo da Ordem de servico: \n");
 				scanf("%d", &codigoOs);
 				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
 				if(clienteEncontrado != NULL){
 					headOs = excluirOs(clienteEncontrado->filho, codigoOs);
 					clienteEncontrado->filho = headOs;
 				}
+				getchar();
+				getchar();
 				break;
 			case 12:
-				printf("Digita o codigo do cliente ai\n");
+				printf("\33[H\33[2J");
+				printf("Digite o codigo do cliente: \n");
 				scanf("%d", &codigoCliente);
-				printf("Digita o codigo da Ordem de servico ai\n");
+				printf("Digite o codigo da Ordem de servico: \n");
 				scanf("%d", &codigoOs);
-				printf("Digita o codigo da Atividade ai\n");
+				printf("Digite o codigo da Atividade: \n");
 				scanf("%d", &codigoAtividade);
 				clienteEncontrado = encontraCliente(head->filho, codigoCliente);
 				if(clienteEncontrado != NULL){
@@ -140,9 +194,13 @@ int main(){
 						printf("Nao e possivel excluir uma atividade em uma ordem de servico fechada.\n");
 					}
 				}
+				getchar();
+				getchar();
 				break;
 			case 13:
 				valorArrecadadoPorAtividade(head->filho, descricaoAtividade);
+				getchar();
+				getchar();
 		}
 
 	}while(opcao!=0);
@@ -167,6 +225,7 @@ int menu(){
 
 	int opcao;
 
+	printf("\33[H\33[2J");
 	printf("----------------------------------------------------------\n");
 	printf("1) Cadastrar Novo Cliente\n");
 	printf("2) Consultar Dados de Um Cliente\n");
@@ -191,7 +250,7 @@ int menu(){
 
 int menuConsultar(){
 	int opcao;
-
+	printf("\33[H\33[2J");
 	printf("----------------------------------------------------------\n");
 	printf("1) Consultar por nome\n");
 	printf("2) Consultar por codigo\n");
@@ -205,7 +264,7 @@ int menuConsultar(){
 
 int menuMostrarRelacao(){
 	int opcao;
-
+	printf("\33[H\33[2J");
 	printf("----------------------------------------------------------\n");
 	printf("1) Relacao em ordem alfabetica de nome\n");
 	printf("2) Relacao em ordem de codigo\n");

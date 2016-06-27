@@ -14,7 +14,7 @@ Atividade* lerAtividade(Atividade* atividade, No* head){
 	No* clienteEncontrado;
     	No* ordemServico;
     	
-    	printf("Digite o codigo do Cliente\n");
+    	printf("Digite o codigo do Cliente: \n");
 	scanf("%d",&codigo);
 	
 	clienteEncontrado = encontraCliente(head->filho, codigo);
@@ -23,7 +23,7 @@ Atividade* lerAtividade(Atividade* atividade, No* head){
 		return NULL;
 	}
 	
-	printf("Digite o codigo da Ordem de servico\n");
+	printf("Digite o codigo da Ordem de servico: \n");
 	scanf("%d",&codigoOS);
 
 	ordemServico = encontraOs(clienteEncontrado->filho,codigoOS);
@@ -32,10 +32,10 @@ Atividade* lerAtividade(Atividade* atividade, No* head){
 		return NULL;
 	}
 	
-	printf("Digite o codigo da Atividade\n");
+	printf("Digite o codigo da Atividade: \n");
 	scanf("%d",&codigoAtividade);
 	
-	printf("Digite a quantidade de horas gastas na atividade\n");
+	printf("Digite a quantidade de horas gastas na atividade: \n");
 	scanf("%d", &quantidadeDeHorasGastas);
 
 	atividade->codigoAtividade = codigoAtividade;
@@ -117,7 +117,7 @@ No* excluirAtividade (No* headAtividades, int codigoAtividade){
 	}
 
 	if(auxHeadAtividades == NULL){
-		printf("Não existe atividades cadastradas com o codigo %d.\n",codigoAtividade);			
+		printf("\nNão existe atividades cadastradas com o codigo %d.\n",codigoAtividade);			
 	}
 	else if(auxAnterior == NULL){
 		headAtividades = auxHeadAtividades->prox;
@@ -217,7 +217,7 @@ void valorArrecadadoPorAtividade(No* head, DescricaoAtividade* descricaoAtividad
 	valorArrecadado[0] = 0;
 
 
-	printf("Digite a atividade que se deseja calcular o valor arrecadado\n");
+	printf("Digite a atividade que se deseja calcular o valor arrecadado: \n");
 	scanf("%d", &atividadePesquisada);
 
 	printf("Digite o mes ao qual se deseja calcular o valor arrecadado pela atividade %d.\n", atividadePesquisada);
@@ -225,5 +225,5 @@ void valorArrecadadoPorAtividade(No* head, DescricaoAtividade* descricaoAtividad
 
 	calculaValorArrecadado(head, valorArrecadado, atividadePesquisada, mesPesquisado, descricaoAtividade, head);
 
-	printf("O valor arrecadado pela Atividade %d no mes %d foi: %.2fR$\n",  atividadePesquisada, mesPesquisado, valorArrecadado[0]);
+	printf("O valor arrecadado pela Atividade %d no mes %d foi: R$%.2f\n",  atividadePesquisada, mesPesquisado, valorArrecadado[0]);
 }

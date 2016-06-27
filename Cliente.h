@@ -50,6 +50,7 @@ int comparaCodigo(int codigo, Cliente *cliente){
 */
 
 void imprimirCliente(Cliente* cliente){
+	printf("***************CLIENTE***************\n");
 	printf("Nome Cliente: %s\n", cliente->nome);
 	printf("Codigo: %d\n", cliente->codigo);
 	printf("Endereco: %s\n", cliente->endereco);
@@ -106,26 +107,26 @@ int leituraCliente(Cliente* cliente, No* head){
 
 	alocaMemoriaCliente(cliente);
 
-	printf("Digita o do codigo ai\n");
+	printf("Digita o do codigo do cliente:\n");
 	scanf("%d", &cliente->codigo);
 
 	if(codigoERepetido(head,cliente->codigo)){
 		printf("Ja existe um cliente com este codigo!\nNao e possivel continuar este cadastro\n");
 		return 0;
 	}
-	printf("Digita o nome ai\n");
+	printf("Digita o nome do cliente: \n");
 	lerString(cliente->nome, 31);
-	printf("Digita o end ai\n");
+	printf("Digita o endedereco do cliente: \n");
 	lerString(cliente->endereco, 31);
-	printf("Digita o bairro ai\n");
+	printf("Digita o bairro do cliente: \n");
 	lerString(cliente->bairro, 16);
-	printf("Digita o CEP ai\n");
+	printf("Digita o CEP do cliente: \n");
 	lerString(cliente->cep, 11);
-	printf("Digita a cidade ai\n");
+	printf("Digita a cidade do cliente: \n");
 	lerString(cliente->cidade, 21);
-	printf("Digita o estado ai\n");
+	printf("Digita o estado do cliente: \n");
 	lerString(cliente->estado, 3);
-	printf("Digita o telefone ai\n");
+	printf("Digita o telefone do cliente: \n");
 	lerString(cliente->telefone, 11);
 
 	return 1;
@@ -234,6 +235,7 @@ No* excluirCliente(No* head, int codigo){
 		if(auxiliar->filho == NULL){
 			head = auxiliar->prox;
 			free(auxiliar);
+			printf("CLIENTE EXCLUIDO COM SUCESSO!\n");
 		}else{
 			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem ordens de servicos ligadas a ele.\n", codigo);
 		}
@@ -242,6 +244,7 @@ No* excluirCliente(No* head, int codigo){
 		if(auxiliar->filho == NULL){
 			auxiliarAnt->prox = auxiliar->prox;
 			free(auxiliar);
+			printf("CLIENTE EXCLUIDO COM SUCESSO!\n");
 		}else{
 			printf("Nao foi possivel excluir o cliente do codigo %d. Pois o mesmo tem ordens de servicos ligadas a ele.\n", codigo);	
 		}
@@ -352,12 +355,13 @@ void impressao(No* head){
 */
 
 void imprimirOS(OrdemServico* ordemServico){
-	printf("Codigo cliente: %d\n", ordemServico->codigoCliente);
-	printf("Codigo OS: %d\n", ordemServico->codigoOrdemServico);
-	printf("Descricao: %s\n", ordemServico->descricaoSolicitacao);
+	printf("************ORDEM DE SERVICO************\n");
+	printf("Codigo do cliente: %d\n", ordemServico->codigoCliente);
+	printf("Codigo da Ordem de servico: %d\n", ordemServico->codigoOrdemServico);
+	printf("Descricao da ordem de servico: %s\n", ordemServico->descricaoSolicitacao);
 	printf("Prioridade: %s\n", ordemServico->prioridade);
 	printf("Data: %d/%d/%d\n", ordemServico->dataSolicitacao.dia, ordemServico->dataSolicitacao.mes, ordemServico->dataSolicitacao.ano);
-	printf("Status: %c\n", ordemServico->status);
+	printf("Status da ordem de servico: %s\n", ordemServico->status == 'A' ? "Aberta" : "Fechada");
 }
 
 /*
@@ -369,10 +373,12 @@ void imprimirOS(OrdemServico* ordemServico){
 
 void imprimirAtividade(Atividade* atividade){
 
-	printf("Codigo Cliente: %d\n",atividade->codigoCliente);
+
+	printf("***************ATIVIDADE***************\n");
+	printf("Codigo do Cliente: %d\n",atividade->codigoCliente);
 	printf("Codigo da Ordem de Servico: %d\n", atividade->codigoOs);
-	printf("Codigo Atividade: %d\n",atividade->codigoAtividade);
-	printf("Quantidade de horas gastas: %d\n", atividade->qtdHorasGastas);
+	printf("Codigo da Atividade: %d\n",atividade->codigoAtividade);
+	printf("Quantidade de horas gastas na atividade: %d\n", atividade->qtdHorasGastas);
 
 }
 

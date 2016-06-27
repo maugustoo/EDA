@@ -35,7 +35,7 @@ No* lerOrdemServico(OrdemServico* ordemServico, No* head){
     
 	ordemServico = alocaMemoriaOrdemServico(ordemServico);
 
-	printf("Digite o codigo do Cliente\n");
+	printf("Digite o codigo do Cliente: \n");
 	scanf("%d",&codigo);
 	
 	clienteEncontrado = encontraCliente(head, codigo);
@@ -46,17 +46,17 @@ No* lerOrdemServico(OrdemServico* ordemServico, No* head){
 	}
 
 	ordemServico->codigoCliente = codigo;
-	printf("Digite o código da Ordem de Servico\n");
+	printf("Digite o código da Ordem de Servico: \n");
 	scanf("%d",&ordemServico->codigoOrdemServico);
-	printf("Digite a descricao da Solicitacao\n");
+	printf("Digite a descricao da Solicitacao: \n");
 	lerString(ordemServico->descricaoSolicitacao,49);
-	printf("Digite a prioridade\n");
+	printf("Digite a prioridade: \n");
 	lerString(ordemServico->prioridade,5);
-	printf("Digite a o dia da solicitacao\n");
+	printf("Digite a o dia da solicitacao: \n");
 	scanf("%d",&ordemServico->dataSolicitacao.dia);
-	printf("Digite o mes da solicitacao\n");
+	printf("Digite o mes da solicitacao: \n");
 	scanf("%d",&ordemServico->dataSolicitacao.mes);
-	printf("Digite o ano da solicitacao\n");
+	printf("Digite o ano da solicitacao: \n");
 	scanf("%d",&ordemServico->dataSolicitacao.ano);
 	getchar();
 	printf("Digite o status da OS:\nA=Aberta\nF=Fechada\n");
@@ -85,6 +85,9 @@ void cadastraOs(No* head){
 	novaOrdemServico->tipoInformacao = OS;
 	novaOrdemServico->informacao = ordemServico;
 	novaOrdemServico->filho = NULL;
+
+	printf("\33[H\33[2J");
+	printf("Ordem de servico cadastrada com sucesso!\n");
 
 	if(clienteDasOrdi->filho == NULL){
 		clienteDasOrdi->filho = novaOrdemServico;
@@ -116,7 +119,7 @@ int comparaCodigoOs(int codigo, OrdemServico *ordemServico){
 No* encontraOs(No* headListaOs, int codigoOs){
 
 	if(headListaOs==NULL){
-		printf("Nao existe OS cadastrada com esse codigo\n");
+		printf("Nao existe Ordem de Servico cadastrada com esse codigo.\n");
 		return NULL;
 	}
 	else if(headListaOs->tipoInformacao == OS && comparaCodigoOs(codigoOs, (OrdemServico*)headListaOs->informacao)){
