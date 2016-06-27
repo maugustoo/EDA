@@ -1,5 +1,13 @@
 #include <stdio.h>
 
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Salvar os dados de uma struct do tipo Cliente no banco de dados
+	Parâmetro: Cliente, tipo de informação da struct no
+	Retorno: 
+*/
+
 void salvarCliente(Cliente* cliente, int tipoInformacao){
 
 	FILE* arquivo;
@@ -23,6 +31,13 @@ void salvarCliente(Cliente* cliente, int tipoInformacao){
 	}
 	fclose(arquivo);
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Salvar os dados de uma struct do tipo OrdemServico no banco de dados
+	Parâmetro: OrdemServico, tipo de informação da struct no
+	Retorno: 
+*/
 
 void salvarOs(OrdemServico* ordemServico, int tipoInformacao){
 
@@ -48,6 +63,13 @@ void salvarOs(OrdemServico* ordemServico, int tipoInformacao){
 	fclose(arquivo);
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Salvar os dados de uma struct do tipo Atividade no banco de dados
+	Parâmetro: Atividade, tipo de informação da struct no
+	Retorno: 
+*/
+
 void salvarAtividade(Atividade* atividade, int tipoInformacao){
 
 	FILE* arquivo;
@@ -68,6 +90,13 @@ void salvarAtividade(Atividade* atividade, int tipoInformacao){
 	fclose(arquivo);
 }
 
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Salvar os dados no arquivo
+	Parâmetro: Cabeça da árvore
+	Retorno: 
+*/
+
 void salvarDadosArquivo(No* head){
 
 	if(head == NULL)
@@ -83,6 +112,13 @@ void salvarDadosArquivo(No* head){
 	salvarDadosArquivo(head->filho);
 	salvarDadosArquivo(head->prox);
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Cadastrar uma Ordem de servico vinda do banco de dados para a árvore
+	Parâmetro: Ordem de serviço, Cabeça da árvore
+	Retorno: 
+*/
 
 void cadastraOsArquivo(No* head, OrdemServico* ordemServico){
 
@@ -107,6 +143,13 @@ void cadastraOsArquivo(No* head, OrdemServico* ordemServico){
 		clienteEncontrado->filho = novaOrdemServico;
 	}
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Cadastrar uma atividade inda do banco de dados para a árvore
+	Parâmetro: Atividade, Cabeça da árvore
+	Retorno: 
+*/
 
 void cadastraAtividadeArquivo(No* head, Atividade* atividade){
 
@@ -137,6 +180,13 @@ void cadastraAtividadeArquivo(No* head, Atividade* atividade){
 	}
 
 }
+
+/*
+	Responsavel: Marcelo Augusto
+	Objetivo: Ler dados do arquivo
+	Parâmetro: Cabeça da árvore
+	Retorno: 
+*/
 
 void lerDados(No* head){
 	
