@@ -3,6 +3,7 @@
 #include "Empresa.h"
 #include "OrdemDeServico.h"
 #include "Atividade.h"
+#include "Cliente.h"
 #include "Arquivo.h"
 
 DescricaoAtividade* defineAtividades(DescricaoAtividade* descricaoAtividade);

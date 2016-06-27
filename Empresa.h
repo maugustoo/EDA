@@ -1,21 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef EMPRESA_H
+#define EMPRESA_H
 
-#include "Cliente.h"
+#include "structsModelo.h"
 
-#define EMPRESA 3
+void alocaMemoriaEmpresa(Empresa*);
+void criaEmpresa(No*, Empresa*);
 
-void criaEmpresa(No* head, Empresa* empresa){
-
-	empresa = (Empresa*)malloc(sizeof(Empresa));
-
-	alocaMemoriaEmpresa(empresa);
-
-	empresa->nome = "Oficina Santa Genoveva";
-
-	head->informacao = empresa;
-	head->tipoInformacao = EMPRESA;
-	head->filho = NULL;
-	head->prox = NULL;
-
-}
+#endif
